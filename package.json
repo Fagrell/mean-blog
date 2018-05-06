@@ -1,0 +1,27 @@
+{
+  "name": "cleanQt-blog",
+  "version": "1.0.0",
+  "description": "Blog used for cleanQt",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fagrell/mean-blog.git"
+  },
+  "keywords": [
+    "MEAN",
+    "Blog",
+    "cleanQt"
+  ],
+  "author": "Alexander Fagrell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fagrell/mean-blog/issues"
+  },
+  "homepage": "https://github.com/Fagrell/mean-blog#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
