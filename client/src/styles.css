@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-body { 
-  padding-top: 65px; 
+h1 {
+  font-size: 60px;
+  margin-bottom: 10px;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  padding-top: 55px; 
 }
