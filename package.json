@@ -22,7 +22,10 @@
   },
   "homepage": "https://github.com/Fagrell/mean-blog#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
-    "mongoose": "^5.0.17"
+    "mongoose": "^5.0.17",
+    "validator": "^10.2.0"
   }
 }
