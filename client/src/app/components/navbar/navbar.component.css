@@ -4,7 +4,15 @@
 
 .navbar-custom {
   background-color: rgb(243, 243, 243);
-  
+}
+
+.navbar-brand-bold {
+  color: rgb(8, 41, 70);
+  font-family: 'PT Sans', sans-serif;
+}
+
+.navbar-brand {
+  font-family: 'Lato', sans-serif;
 }
 
 .navbar-custom .navbar-nav .nav-link {
