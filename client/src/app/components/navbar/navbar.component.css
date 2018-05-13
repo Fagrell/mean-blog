@@ -8,10 +8,9 @@
 }
 
 .navbar-custom .navbar-nav .nav-link {
-
   border-bottom: rgb(243, 243, 243) solid 10px;
-  padding: 1rem 0.4rem 0rem;
-  margin: 0em 0.5em -0.5em;
+  padding: 0.5rem 0.4rem 0rem;
+  margin: 0em 0.5em -0.9em;
   /* padding: .75rem 1rem;
   border-bottom: rgb(243, 243, 243) solid 10px; */
 }
@@ -22,7 +21,7 @@
   transition: border-bottom 0.5s ease;
   border-bottom: rgb(8, 41, 70) solid 10px;
   color: rgb(8, 41, 70);
-  padding: 1rem 0.4rem 0rem;
+  padding: 0.5rem 0.4rem 0rem;
 
    
 }
