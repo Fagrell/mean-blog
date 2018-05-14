@@ -4,8 +4,15 @@
 
 <div class="af-container-white">
   <form [formGroup]="form" (submit)="onRegisterSubmit()">
-    <div class="row">
 
+    <!-- Message if failed to register -->
+    <div class="row show-hide-message">
+      <div class="col-md-12" [ngClass]="errorMessageClass">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div class="row">
       <!-- Username -->
       <div class="col-md-6 form-group" [ngClass]="{'was-validated': !form.controls.username.errors }">
         <label class="col-form-label" for="username">Username</label>
@@ -54,7 +61,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <input [disabled]="!form.valid" type="submit" class="btn btn-sucess btn-send" value="Send message">
+        <input [disabled]="!form.valid || submitProcessing" type="submit" class="btn btn-sucess btn-send" value="Send message">
       </div>
     </div>
   </form>

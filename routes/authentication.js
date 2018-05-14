@@ -42,7 +42,7 @@ module.exports = (router) => {
             return res.json({ sucess:false, message: 'Could not save user. Error ' + err});
         }
       }
-      res.json({ sucess: true, message: 'User registered!'});
+      return res.json({ sucess: true, message: 'User registered!'});
     });
 
 
