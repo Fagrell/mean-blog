@@ -9,6 +9,8 @@
 .navbar-brand-bold {
   color: rgb(8, 41, 70);
   font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .navbar-brand {
