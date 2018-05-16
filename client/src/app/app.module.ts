@@ -15,6 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Services
 import {AuthenticateService } from './services/authenticate.service';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {AuthenticateService } from './services/authenticate.service';
     HomeComponent,
     AboutComponent,
     BlogComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent,
+    DashboardComponent
   ],
 
   imports: [
