@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {AuthenticateService } from './services/authenticate.service';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     BlogComponent,
     RegisterComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
 
   imports: [

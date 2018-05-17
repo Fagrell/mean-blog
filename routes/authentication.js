@@ -77,5 +77,35 @@ module.exports = (router) => {
     });
   });
 
+  router.use((req, res, next) => {
+    const token = req.headers['auth'];
+    if (!token) {
+      return res.json({ sucess: false, message: 'No token provided'});
+    }
+
+    jwt.verify(token, config.secret, (err, decoded) => {
+      if (err) {
+        return res.json({ sucess: false, message: 'Token invalid: ' + err });
+      }
+
+      req.decoded = decoded;
+      next();
+    });
+  });
+
+  router.get('/profile', (req, res) => {
+    User.findOne({ _id : req.decoded.userId}).select('username email').exec((err, user) => {
+      if (err) {
+        return res.json({ sucess: false, message: err});
+      }
+
+      if (!user) {
+        return res.json({ sucess: false, message: 'User could not be found'})
+      }
+
+      return res.json({ sucess: true, user: user});
+    });
+  });
+
   return router;
 }
