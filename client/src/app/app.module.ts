@@ -11,10 +11,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppRoutingModule } from './app-routing.module';
 
 // Services
-import {AuthenticateService } from './services/authenticate.service';
+import { AuthenticateService } from './services/authenticate.service';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -37,6 +38,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FlashMessagesModule.forRoot(),
     AppRoutingModule
   ],
 
