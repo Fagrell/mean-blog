@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticateService } from '../../services/authenticate.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
      private formBuilder: FormBuilder,
-     private authenticateService: AuthenticateService,
+     private authService: AuthService,
      private router: Router
   ) { 
      this.createForm();
@@ -94,7 +94,7 @@ export class RegisterComponent implements OnInit {
       password: this.form.controls.password.value
     };
 
-    this.authenticateService.registerUser(user).subscribe(data => {
+    this.authService.registerUser(user).subscribe(data => {
       if (!data['success']) {
         this.errorMessageClass = 'alert alert-danger';
         this.errorMessage = data['message'];

@@ -5,6 +5,9 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 //Modules
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,10 +18,9 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppRoutingModule } from './app-routing.module';
 
 // Services
-import { AuthenticateService } from './services/authenticate.service';
-import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth.guard';
+import { NotAuthGuard } from './services/not-auth.guard';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,9 @@ import { ProfileComponent } from './components/profile/profile.component';
   ],
 
   providers: [
+    AuthService,
+    AuthGuard,
+    NotAuthGuard
 
   ],
   bootstrap: [AppComponent]

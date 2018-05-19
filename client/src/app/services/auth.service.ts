@@ -5,27 +5,40 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticateService {
+export class AuthService {
 
   domain = "http://localhost:8080";
-  authenticateToken;
-  user;
+  authToken = null;
+  user = null;
   jwtHelper = new JwtHelperService();
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return;
+    }
+    this.authToken = token;
+
+    const user = localStorage.getItem('user');
+    if (!user) {
+      this.authToken = null;
+      return;
+    }
+    this.user = user;
+    
+    if (!this.checkToken()) {
+      this.authToken = null;
+      this.user = null;
+    }
+   }
 
   createAuthenticationHeaders() {
-    this.loadToken();
     return new HttpHeaders({
         'Content-Type': 'application/json',
-        'auth': this.authenticateToken
+        'auth': localStorage.getItem('token')
       });
-  }
-
-  loadToken() {
-    this.authenticateToken = localStorage.getItem('token');
   }
 
   registerUser(user) {
@@ -37,28 +50,45 @@ export class AuthenticateService {
   }
 
   logoutUser() {
-    this.authenticateToken = null;
+    this.authToken = null;
     this.user = null;
     localStorage.clear();
   }
 
   userLoggedIn() {
-    if (!this.authenticateToken) {
+    if (!this.authToken) {
       return false;
     }
-    return !this.jwtHelper.isTokenExpired(this.authenticateToken);
+    return !this.jwtHelper.isTokenExpired(this.authToken);
   }
 
   storeUserData(token, user) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
-    this.authenticateToken = token;
+    this.authToken = token;
     this.user = user;
   }
 
   getProfile() {
     const headers = this.createAuthenticationHeaders();
     return this.http.get(this.domain + '/authentication/profile', { headers: headers });
+  }
+
+  checkToken() {
+    const headers = this.createAuthenticationHeaders();
+    const httpRequest = this.http.get(this.domain + '/authentication/profile', { headers: headers });
+    httpRequest.subscribe( profile => {
+      if (!profile) {
+        return false;
+      }
+      
+      if (!profile['success']) {
+        return false;
+      }
+      
+      return false;
+    });
+    return true;
   }
 
 

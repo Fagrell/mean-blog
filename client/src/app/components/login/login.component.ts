@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticateService } from '../../services/authenticate.service';
+import { AuthService } from '../../services/auth.service';
+import { AuthGuard } from '../../services/auth.guard';
 import { Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,14 @@ export class LoginComponent implements OnInit {
   form: FormGroup; 
   errorMessageClass;
   errorMessage;
+  previousUrl;
 
   submitProcessing = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authenticateService: AuthenticateService,
+    private authService: AuthService,
+    private authGuard: AuthGuard,
     private router: Router
   ) { 
     this.createForm();
@@ -37,19 +41,28 @@ export class LoginComponent implements OnInit {
       password: this.form.controls.password.value
     };
 
-    this.authenticateService.loginUser(user).subscribe(data => {
+    this.authService.loginUser(user).subscribe(data => {
       if (!data['success']) {
         this.errorMessageClass = 'alert alert-danger';
         this.errorMessage = data['message'];
         this.submitProcessing = false;
         return;
       }
-      this.authenticateService.storeUserData(data['token'], data['user']);
+      this.authService.storeUserData(data['token'], data['user']);
+      if (this.previousUrl) {
+        return this.router.navigate([this.previousUrl]);
+      }
       this.router.navigate(['/dashboard']);
     });
   }
 
   ngOnInit() {
+    if (this.authGuard.redirectUrl) {
+      this.errorMessageClass = 'alert alert-danger';
+      this.errorMessage = 'You must login to view \'' + this.authGuard.redirectUrl +'\'';
+      this.previousUrl = this.authGuard.redirectUrl;
+      this.authGuard.redirectUrl = undefined;
+    }
   }
 
 }
