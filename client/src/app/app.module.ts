@@ -14,6 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MarkdownModule } from 'ngx-markdown';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -21,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth.guard';
 import { NotAuthGuard } from './services/not-auth.guard';
+import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { NotAuthGuard } from './services/not-auth.guard';
     RegisterComponent,
     LoginComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    BlogEditComponent
   ],
 
   imports: [
@@ -41,6 +44,7 @@ import { NotAuthGuard } from './services/not-auth.guard';
     ReactiveFormsModule,
     HttpClientModule,
     FlashMessagesModule.forRoot(),
+    MarkdownModule.forRoot(),
     AppRoutingModule
   ],
 

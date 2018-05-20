@@ -1,0 +1,30 @@
+<div class="af-container-blue">
+  <h1 class="text-center">Create/Edit Blog</h1>
+</div>
+
+<div class="af-container-white">
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a routerLink="/blog-edit" class="nav-link" [ngClass]="{'active': editing }" (click)="onEditClicked()">Edit</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/blog-edit" class="nav-link" [ngClass]="{'active': !editing }" (click)="onPreviewClicked()">Preview</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div *ngIf="editing">
+        <form [formGroup]="form" (submit)="onSaveSubmit()">
+          <div class="form-group">
+            <textarea class="form-control" name="blogMessage" id="blogMessage" rows="20" formControlName="blogMessage"></textarea>
+          </div>
+        </form>
+      </div>
+      <p *ngIf="!editing">
+        <markdown [data]="form.controls.blogMessage.value"></markdown>
+      </p>
+    </div>
+  </div>
+</div>

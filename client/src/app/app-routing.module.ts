@@ -1,12 +1,17 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+
+// Components
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
 import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+
+//Guards
 import { AuthGuard } from './services/auth.guard'
 import { NotAuthGuard } from './services/not-auth.guard'
 
@@ -28,6 +33,11 @@ const appRoutes: Routes = [
   {
     path: 'blog',
     component: BlogComponent
+  },
+  {
+    path: 'blog-edit',
+    component: BlogEditComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'about',

@@ -78,10 +78,6 @@ export class AuthService {
     const headers = this.createAuthenticationHeaders();
     const httpRequest = this.http.get(this.domain + '/authentication/profile', { headers: headers });
     httpRequest.subscribe( profile => {
-      if (!profile) {
-        return false;
-      }
-      
       if (!profile['success']) {
         return false;
       }
