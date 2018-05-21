@@ -3,28 +3,66 @@
 </div>
 
 <div class="af-container-white">
-  <div class="card">
-    <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-          <a routerLink="/blog-edit" class="nav-link" [ngClass]="{'active': editing }" (click)="onEditClicked()">Edit</a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/blog-edit" class="nav-link" [ngClass]="{'active': !editing }" (click)="onPreviewClicked()">Preview</a>
-        </li>
-      </ul>
-    </div>
-    <div class="card-body">
-      <div *ngIf="editing">
-        <form [formGroup]="form" (submit)="onSaveSubmit()">
-          <div class="form-group">
-            <textarea class="form-control" name="blogMessage" id="blogMessage" rows="20" formControlName="blogMessage"></textarea>
-          </div>
-        </form>
+
+  <form [formGroup]="form" (submit)="onSaveSubmit()">
+    <h2 class="text-center">Summary</h2>
+    <div class="card" style="margin-bottom: 40px;">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a routerLink="/blog-edit" class="nav-link" [ngClass]="{'active': editing }" (click)="onEditClicked()">Edit</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/blog-edit" class="nav-link" [ngClass]="{'active': !editing }" (click)="onPreviewClicked()">Preview</a>
+          </li>
+        </ul>
       </div>
-      <p *ngIf="!editing">
-        <markdown [data]="form.controls.blogMessage.value"></markdown>
-      </p>
+      <div class="card-body" style="padding: 2px;">
+        <div *ngIf="editing">
+          <textarea class="form-control" name="summaryMessage" id="summaryMessage" spellcheck="true" rows="5" formControlName="summaryMessage"></textarea>
+        </div>
+        <p *ngIf="!editing">
+          <markdown [data]="form.controls.summaryMessage.value"></markdown>
+        </p>
+      </div>
     </div>
-  </div>
+
+    <h2 class="text-center">Message</h2>
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a routerLink="/blog-edit" class="nav-link" [ngClass]="{'active': editing }" (click)="onEditClicked()">Edit</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/blog-edit" class="nav-link" [ngClass]="{'active': !editing }" (click)="onPreviewClicked()">Preview</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body" style="padding: 2px;">
+        <div *ngIf="editing">
+          <!-- <div class="form-group"> -->
+            <textarea class="form-control" name="blogMessage" id="blogMessage" rows="20" spellcheck="true" formControlName="blogMessage"></textarea>
+          <!-- </div> -->
+        </div>
+        <p *ngIf="!editing">
+          <markdown [data]="form.controls.blogMessage.value"></markdown>
+        </p>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-md-1">
+        <div class="form-check" style="margin-top: 5px;">
+          <input class="form-check-input form-control" type="checkbox" value="" name="publicCheckBox" id="publicCheckBox" formControlName="publicCheckBox">
+          <label class="form-check-label" for="publicCheckBox">Public</label>
+        </div>
+      </div>
+      <div class="col-md-11">
+        <input type="text" class="form-control" placeholder="Enter comma separated tags"  name="tagsList" id="tagsList" formControlName="tagsList">       
+      </div>
+    </div>
+    <div class="text-right" style="margin-top: 10px;">
+      <input [disabled]="!form.valid || submitProcessing" type="submit" class="btn btn-primary btn-send" value="Save">
+    </div>
+  </form>
 </div>

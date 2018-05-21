@@ -20,8 +20,26 @@ export class BlogEditComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      blogMessage: ['']
+      title: [''],
+      summaryMessage: [''],
+      blogMessage: [''],
+      publicCheckBox: [false],
+      tagsList: ['', this.validateTags]
     });
+  }
+
+  validateTags(controls) {
+    const allowedList = ['cpp', 'c', 'mo'];
+    const tagsList = controls.value.replace(/\s/g, '').split(',');
+    for (var i = 0; i < tagsList.length; i++) {
+      const found = allowedList.find(element => {
+        return element === tagsList[i];
+      });
+      if (found === undefined) {
+        return { 'validateTags': true }
+      }
+    }
+    return null;
   }
 
   onEditClicked() {
