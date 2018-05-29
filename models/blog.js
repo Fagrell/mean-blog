@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const valid = require('validator');
+const tag = require('./tag');
 
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
@@ -24,22 +25,25 @@ const titleValidators = [{
     message: 'Title must be alphanumeric'
 }];
 
+const summaryValidators = [{
+  validator: (body) => { return lengthChecker(body, 100, 500)},
+  message: 'Body must consist of at least 100 characters but no more than 500'
+}];
+
 const bodyValidators = [{
   validator: (body) => { return lengthChecker(body, 100, 10000)},
   message: 'Body must consist of at least 100 characters but no more than 10000'
-},
-{
-  validator: valid.isEmail,
-  message: 'E-mail is incorrect'
 }];
 
 const blogSchema = new Schema({
   title: { type: String, required: true, validator: titleValidators },
+  summary: { type: String, required: true, validator: summaryValidators },
   body: { type: String, required: true, validator: bodyValidators },
   createdBy: { type: String, required: true },
-  createdAt: { type: Date, required: true },
-  editBy: {type: String},
-  changedAt: {type: Date}
+  createdAt: { type: Date, required: true, default: Date.now },
+  editedBy: {type: String},
+  editedAt: {type: Date, default: Date.now},
+  tags: [tag]
 });
 
 module.exports = mongoose.model('Blog', blogSchema)
