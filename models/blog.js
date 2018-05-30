@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const valid = require('validator');
-const tag = require('./tag');
 
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
@@ -39,11 +38,11 @@ const blogSchema = new Schema({
   title: { type: String, required: true, validator: titleValidators },
   summary: { type: String, required: true, validator: summaryValidators },
   body: { type: String, required: true, validator: bodyValidators },
-  createdBy: { type: String, required: true },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   createdAt: { type: Date, required: true, default: Date.now },
-  editedBy: {type: String},
+  editedBy: {type: Schema.Types.ObjectId},
   editedAt: {type: Date, default: Date.now},
-  tags: [tag]
+  tags: { type: [Schema.Types.ObjectId], ref: 'Tag', required: true }
 });
 
 module.exports = mongoose.model('Blog', blogSchema)

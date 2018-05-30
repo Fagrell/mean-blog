@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const config = require('./config/database.js');
 const path = require('path');
 const authentication = require('./routes/authentication')(router);
+
+// Requires token from here
+const blog = require('./routes/blog')(router);
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -28,6 +31,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/client/dist/client'));
 app.use('/authentication', authentication);
+app.use('/blog', blog);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/dist/client/index.html'));
