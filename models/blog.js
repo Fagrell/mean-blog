@@ -40,9 +40,10 @@ const blogSchema = new Schema({
   body: { type: String, required: true, validator: bodyValidators },
   createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   createdAt: { type: Date, required: true, default: Date.now },
-  editedBy: {type: Schema.Types.ObjectId},
-  editedAt: {type: Date, default: Date.now},
-  tags: { type: [Schema.Types.ObjectId], ref: 'Tag', required: true }
+  editedBy: { type: Schema.Types.ObjectId },
+  editedAt: { type: Date, default: Date.now },
+  tags: { type: [Schema.Types.ObjectId], ref: 'Tag', required: true },
+  public: { type: Boolean, required: true }
 });
 
 module.exports = mongoose.model('Blog', blogSchema)

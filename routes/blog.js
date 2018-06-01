@@ -25,6 +25,10 @@ module.exports = (router) => {
       return res.json({ success: false, message: 'You need to provide at least one tag'});
     }
 
+    if (!req.body.public) {
+      return res.json({ success: false, message: 'You need to specify if the blog post should be public'});
+    }
+
     let blog = new Blog({
       title: req.body.title,
       summary: req.body.summary,
