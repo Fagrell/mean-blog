@@ -38,11 +38,11 @@ const blogSchema = new Schema({
   title: { type: String, required: true, validator: titleValidators },
   summary: { type: String, required: true, validator: summaryValidators },
   body: { type: String, required: true, validator: bodyValidators },
-  createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  createdBy: { type: String, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
-  editedBy: { type: Schema.Types.ObjectId },
+  editedBy: { type: String },
   editedAt: { type: Date, default: Date.now },
-  tags: { type: [Schema.Types.ObjectId], ref: 'Tag', required: true },
+  tags: { type: [String], required: true },
   public: { type: Boolean, required: true }
 });
 
