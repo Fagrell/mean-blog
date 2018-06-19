@@ -25,7 +25,7 @@ module.exports = (router) => {
       return res.json({ success: false, message: 'You need to provide at least one tag'});
     }
 
-    if (!req.body.public) {
+    if (typeof req.body.public === "undefined") {
       return res.json({ success: false, message: 'You need to specify if the blog post should be public'});
     }
 
@@ -34,7 +34,8 @@ module.exports = (router) => {
       summary: req.body.summary,
       body: req.body.body,
       createdBy: req.body.createdBy,
-      tags: req.body.tags
+      tags: req.body.tags,
+      public: req.body.public
     });
 
     blog.save((err) => {
