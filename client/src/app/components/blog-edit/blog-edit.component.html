@@ -3,10 +3,13 @@
 </div>
 
 <div class="af-container-white">
-
   <form [formGroup]="form" (submit)="onSaveSubmit()">
-    <h2 class="text-center">Summary</h2>
-    <div class="card" style="margin-bottom: 40px;">
+    <div class="row">
+      <div class="col-md-12">
+        <input type="text" class="form-control" placeholder="Write title here"  name="title" id="title" formControlName="title">       
+      </div>
+    </div>
+    <div class="card" style="margin-top: 10px; margin-bottom: 40px;">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
@@ -19,7 +22,7 @@
       </div>
       <div class="card-body" style="padding: 2px;">
         <div *ngIf="editing">
-          <textarea class="form-control" name="summaryMessage" id="summaryMessage" spellcheck="true" rows="5" formControlName="summaryMessage"></textarea>
+          <textarea class="form-control" name="summaryMessage" placeholder="Summary goes here" id="summaryMessage" spellcheck="true" rows="5" formControlName="summaryMessage"></textarea>
         </div>
         <p *ngIf="!editing">
           <markdown [data]="form.controls.summaryMessage.value"></markdown>
@@ -27,7 +30,6 @@
       </div>
     </div>
 
-    <h2 class="text-center">Message</h2>
     <div class="card">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
