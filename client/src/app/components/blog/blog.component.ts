@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
+import { BlogService } from '../../services/blog.service';
 
 @Component({
   selector: 'app-blog',
@@ -10,18 +11,17 @@ export class BlogComponent implements OnInit {
 
   message: String = "";
   messageClass: String = "";
-  newPost: Boolean = false;
   loadingFeed: Boolean  = false;
+  blogs;
 
   public blogMessage: String = "";
 
   constructor(
-    private router: Router
+    private router: Router,
+    private blog: BlogService
   ) {}
 
   newBlogForm() {
-    this.newPost = true;
-
     this.router.navigate(['/blog-edit']);
   }
 
@@ -33,6 +33,14 @@ export class BlogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.blog.allBlogs().subscribe(data => {
+      console.log("GOES HERE?");
+      if(!data['success']) {
+        return console.log("Failed getting all blogs, becase: " + data['message']);
+      }
+      console.log("goes here?")
+      this.blogs = data['blogs'];
+    });
   }
 
 }

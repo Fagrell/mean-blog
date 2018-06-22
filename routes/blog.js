@@ -65,5 +65,20 @@ module.exports = (router) => {
 
   });
 
+  router.get('/all', (req, res) => {
+    Blog.find({}, (err, blogs) => {
+
+      if (err) {
+        return res.json({ success: false, message: 'Could not get blogs. Error ' + err});
+      }
+
+      if (!blogs) {
+        return res.json({ success: false, message: 'No blogs have been created.'});
+      }
+
+      return res.json({ success: true, blogs: blogs});
+    }).sort({ '_id': -1 })
+  });
+
   return router;
 }

@@ -17,4 +17,9 @@ export class BlogService {
     const headers = this.auth.createAuthenticationHeaders();
     return this.http.post(this.auth.domain + '/blog/new', blog, { headers: headers });
   }
+
+  allBlogs() {
+    const headers = this.auth.createAuthenticationHeaders();
+    return this.http.get(this.auth.domain + '/blog/all', { headers: headers });
+  }
 }

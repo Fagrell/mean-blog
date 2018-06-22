@@ -14,20 +14,23 @@
     <a routerLink="/blog" class="fa fa-refresh" *ngIf="!newPost" (click)="refreshFeed()"></a>&nbsp;&nbsp;
     <a routerLink="/blog" class="fa fa-plus" *ngIf="!newPost && !loadingFeed" (click)="newBlogForm()"></a>
   </div>
-  <div *ngIf="!newPost">
+
+  <div *ngFor="let blog of blogs">
     <div class="blog">
       <div class="row blog-header-bottom-spacing">
         <div class="col-sm-9">
-          <h3>Title</h3>
+          <h3 class="main-title-color">{{ blog.title }}</h3>
         </div>
         <div class="col-sm-3 text-right small" style="margin-top: 15px;">
-          <span class="text-muted">Alexander Fagrell</span>&nbsp;&nbsp;<i class="fa fa-code"></i><br>
+          <span class="text-muted"> {{ blog.createdBy }}</span>&nbsp;&nbsp;<i class="fa fa-code"></i><br>
           <!-- <span class="text-muted">Emile Dodin</span>&nbsp;&nbsp;<i class="fa fa-arrow-left"></i><br> -->
-          <span class="text-muted">June 20, 2018</span>&nbsp;&nbsp;<i class="fa fa-calendar"></i><br>
+          <span class="text-muted">{{ blog.createdAt | date: 'dd MMM, yyyy' }}</span>&nbsp;&nbsp;<i class="fa fa-calendar"></i><br>
         </div>
       </div>
       <p>
-        <markdown  [data]="blogMessage">
+          <!-- [data]="blogMessage" -->
+        <markdown [data] = "blog.summary"> 
+          
         </markdown>
       </p>
       <div class="row text-strong">
