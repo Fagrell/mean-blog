@@ -1,1 +1,60 @@
-<div class="page-header"><h1>home works!</h1></div>
+<div class="af-container-blue">
+    <div class="row">
+      <div class="col-md-8">
+        <h1 class="text-center"><span class="alternative-title-color">Qt</span> and <span class="alternative-title-color">C++</span> Blog</h1>
+        <h4 class="text-center">Exploring how to write clean Qt code</h4>
+      </div>
+      <div class="col-md-4" style="padding-top: 40px;">
+        <h5 class="text-center text-muted font-italic">New posts every <span class="alternative-title-color">Tuesday</span> morning</h5> 
+        <h6 class="text-center text-muted font-italic"><a href="#">What is Qt?</a> - <a href="#">Clean Code?</a> - <a href="#">Who am I?</a></h6>
+      </div>
+    </div>
+  </div>
+  <!-- 
+  <div class="row show-hide-message">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div> -->
+  
+  <div class="af-container-white">
+  
+    <div class="text-right">
+      <a routerLink="/blog" class="fa fa-refresh" *ngIf="!newPost" (click)="refreshFeed()"></a>&nbsp;&nbsp;
+      <a routerLink="/blog" class="fa fa-plus" *ngIf="!newPost && !loadingFeed" (click)="newBlogForm()"></a>
+    </div>
+  
+    <div *ngFor="let blog of blogs">
+      <div class="blog">
+        <div class="row blog-header-bottom-spacing">
+          <div class="col-sm-9">
+            <h3 class="main-title-color">{{ blog.title }}</h3>
+          </div>
+          <div class="col-sm-3 text-right small" style="margin-top: 15px;">
+            <span class="text-muted"> {{ blog.createdBy }}</span>&nbsp;&nbsp;<i class="fa fa-code"></i><br>
+            <!-- <span class="text-muted">Emile Dodin</span>&nbsp;&nbsp;<i class="fa fa-arrow-left"></i><br> -->
+            <span class="text-muted">{{ blog.createdAt | date: 'dd MMM, yyyy' }}</span>&nbsp;&nbsp;<i class="fa fa-calendar"></i><br>
+          </div>
+        </div>
+        <p>
+            <!-- [data]="blogMessage" -->
+          <markdown [data] = "blog.summary"> 
+            
+          </markdown>
+        </p>
+        <div class="row text-strong">
+          <div class="col-md-8">
+            <a routerLink="/blog" (click)="editBlog()">Edit</a>&nbsp; 
+            <a routerLink="/blog" (click)="deleteBlog()">Delete</a>
+          </div>
+          <div class="col-md-4 text-right "><strong class="btn btn-primary"><span class="text-muted">cout << </span>read_all()</strong></div>
+        </div>
+      </div>
+  
+      <hr class="af-separator">
+    </div>
+  </div>
+  
+  <div class="af-container-blue">
+      text! Footer!
+  </div>

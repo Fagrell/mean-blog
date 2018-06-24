@@ -3,6 +3,10 @@
   color: rgb(22, 17, 97);
 }
 
+.alternative-title-color {
+  color: #6ccc00;
+}
+
 h1 {
   font-size: 60px;
   margin-bottom: 10px;

@@ -15,9 +15,6 @@
           <a class="nav-link" routerLink="/profile">Profile</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link"  routerLink="/blog">Blog</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link"  routerLink="/about">About</a>
         </li>
         <li *ngIf="!authService.userLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
