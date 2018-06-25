@@ -31,7 +31,7 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'blog',
+    path: 'blog/:title',
     component: BlogComponent
   },
   {

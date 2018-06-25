@@ -47,10 +47,14 @@
             <a routerLink="/blog" (click)="editBlog()">Edit</a>&nbsp; 
             <a routerLink="/blog" (click)="deleteBlog()">Delete</a>
           </div>
-          <div class="col-md-4 text-right "><strong class="btn btn-primary"><span class="text-muted">cout << </span>read_all()</strong></div>
+          <div class="col-md-4 text-right ">
+            <strong class="btn btn-primary" [routerLink]="['/blog', blog.title | replaceSpace: '-' | lowercase ]">
+              <span class="text-muted">cout << </span>read_all()
+            </strong>
+          </div>
         </div>
       </div>
-  
+
       <hr class="af-separator">
     </div>
   </div>

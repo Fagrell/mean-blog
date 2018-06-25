@@ -1,5 +1,5 @@
 <div class="af-container-blue">
-  <h1 class="text-center">Blog</h1>
+  <h1 class="text-center">{{ title }}</h1>
 </div>
 <!-- 
 <div class="row show-hide-message">
@@ -15,21 +15,21 @@
     <a routerLink="/blog" class="fa fa-plus" *ngIf="!newPost && !loadingFeed" (click)="newBlogForm()"></a>
   </div>
 
-  <div *ngFor="let blog of blogs">
-    <div class="blog">
+  <div>
+    <div class="blog" [ngClass]="currentBlog">
       <div class="row blog-header-bottom-spacing">
         <div class="col-sm-9">
-          <h3 class="main-title-color">{{ blog.title }}</h3>
+          <h3 class="main-title-color">{{ title }}</h3>
         </div>
         <div class="col-sm-3 text-right small" style="margin-top: 15px;">
-          <span class="text-muted"> {{ blog.createdBy }}</span>&nbsp;&nbsp;<i class="fa fa-code"></i><br>
+          <span class="text-muted"> {{ createdBy }}</span>&nbsp;&nbsp;<i class="fa fa-code"></i><br>
           <!-- <span class="text-muted">Emile Dodin</span>&nbsp;&nbsp;<i class="fa fa-arrow-left"></i><br> -->
-          <span class="text-muted">{{ blog.createdAt | date: 'dd MMM, yyyy' }}</span>&nbsp;&nbsp;<i class="fa fa-calendar"></i><br>
+          <span class="text-muted">{{ createdAt | date: 'dd MMM, yyyy' }}</span>&nbsp;&nbsp;<i class="fa fa-calendar"></i><br>
         </div>
       </div>
       <p>
-          <!-- [data]="blogMessage" -->
-        <markdown [data] = "blog.summary"> 
+
+        <markdown [data] = "body"> 
           
         </markdown>
       </p>

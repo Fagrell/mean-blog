@@ -29,8 +29,11 @@ module.exports = (router) => {
       return res.json({ success: false, message: 'You need to specify if the blog post should be public'});
     }
 
+    let searchTitle = req.body.title.split(' ').join('-');
+
     let blog = new Blog({
       title: req.body.title,
+      searchTitle: searchTitle,
       summary: req.body.summary,
       body: req.body.body,
       createdBy: req.body.createdBy,
@@ -61,12 +64,10 @@ module.exports = (router) => {
       }
       return res.json({ success: true, message: 'Blog registered!'});
     });
-
-
   });
 
   router.get('/all', (req, res) => {
-    Blog.find({}, (err, blogs) => {
+    Blog.find({}, { body: 0, searchTitle: 0 }, (err, blogs) => {
 
       if (err) {
         return res.json({ success: false, message: 'Could not get blogs. Error ' + err});
@@ -77,7 +78,27 @@ module.exports = (router) => {
       }
 
       return res.json({ success: true, blogs: blogs});
-    }).sort({ '_id': -1 })
+    }).sort({ '_id': -1 });
+  });
+
+  router.post('/one', (req, res) => {
+
+    if (!req.body.title) {
+      return res.json({ success: false, message: 'You need to provide a blog title'});
+    }
+
+    Blog.findOne({"searchTitle": req.body.title.toLowerCase()}, { summary: 0, searchTitle: 0 }, (err, blog) => {
+
+      if (err) {
+        return res.json({ success: false, message: 'Could not found blog. Error ' + err});
+      }
+
+      if (!blog) {
+        return res.json({ success: false, message: 'No blogs have been created.'});
+      }
+
+      return res.json({ success: true, blog: blog});
+    });
   });
 
   return router;

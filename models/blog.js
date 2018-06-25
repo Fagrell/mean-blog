@@ -36,6 +36,7 @@ const bodyValidators = [{
 
 const blogSchema = new Schema({
   title: { type: String, required: true, validator: titleValidators },
+  searchTitle: { type: String, required: true, unique: true, lowercase: true},
   summary: { type: String, required: true, validator: summaryValidators },
   body: { type: String, required: true, validator: bodyValidators },
   createdBy: { type: String, required: true },

@@ -22,4 +22,9 @@ export class BlogService {
     const headers = this.auth.createAuthenticationHeaders();
     return this.http.get(this.auth.domain + '/blog/all', { headers: headers });
   }
+
+  oneBlog(title) {
+    const headers = this.auth.createAuthenticationHeaders();
+    return this.http.post(this.auth.domain + '/blog/one', { title: title }, { headers: headers });
+  }
 }

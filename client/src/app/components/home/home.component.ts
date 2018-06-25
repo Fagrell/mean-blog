@@ -34,11 +34,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.blog.allBlogs().subscribe(data => {
-      console.log("GOES HERE?");
       if(!data['success']) {
         return console.log("Failed getting all blogs, becase: " + data['message']);
       }
-      console.log("goes here?")
       this.blogs = data['blogs'];
     });
   }

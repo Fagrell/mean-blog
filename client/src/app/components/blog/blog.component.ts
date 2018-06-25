@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { BlogService } from '../../services/blog.service';
 
 @Component({
@@ -12,12 +12,16 @@ export class BlogComponent implements OnInit {
   message: String = "";
   messageClass: String = "";
   loadingFeed: Boolean  = false;
-  blogs;
+  title: String = "";
+  body: String = "";
+  createdBy: String = "";
+  createdAt: Date;
 
   public blogMessage: String = "";
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private blog: BlogService
   ) {}
 
@@ -33,14 +37,21 @@ export class BlogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.blog.allBlogs().subscribe(data => {
-      console.log("GOES HERE?");
-      if(!data['success']) {
-        return console.log("Failed getting all blogs, becase: " + data['message']);
-      }
-      console.log("goes here?")
-      this.blogs = data['blogs'];
-    });
+    this.route.params.subscribe(params => {
+        if (!params['title']) {
+          return; //handle it!
+        }
+        this.blog.oneBlog(params['title']).subscribe(data => {
+          if(!data['success']) {
+            return console.log("Failed getting blog, becase: " + data['message']);
+          }
+          this.title = data['blog'].title;
+          this.body = data['blog'].body;
+          this.createdBy = data['blog'].createdBy;
+          this.createdAt = data['blog'].createdAt;
+
+        });
+      });
   }
 
 }
