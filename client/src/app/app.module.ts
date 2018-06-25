@@ -24,6 +24,9 @@ import { AuthGuard } from './services/auth.guard';
 import { NotAuthGuard } from './services/not-auth.guard';
 import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
 
+// Pipes
+import { ReplaceSpacePipe } from './pipes/replace-space.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,8 @@ import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
     LoginComponent,
     DashboardComponent,
     ProfileComponent,
-    BlogEditComponent
+    BlogEditComponent,
+    ReplaceSpacePipe
   ],
 
   imports: [
