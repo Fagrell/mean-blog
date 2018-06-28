@@ -1,51 +1,17 @@
 <div class="af-container-blue">
-  <h1 class="text-center">{{ title }}</h1>
-</div>
-<!-- 
-<div class="row show-hide-message">
-  <div [ngClass]="messageClass">
-    {{ message }}
+  <div>
+    <h3 class="text-center">{{ title }}</h3>
   </div>
-</div> -->
+  <div class="alternative-title-color text-right">
+    {{ createdBy }}, {{ createdAt | date: 'dd MMM, yyyy' }}
+  </div>
+</div>
 
 <div class="af-container-white">
-
-  <div class="text-right">
-    <a routerLink="/blog" class="fa fa-refresh" *ngIf="!newPost" (click)="refreshFeed()"></a>&nbsp;&nbsp;
-    <a routerLink="/blog" class="fa fa-plus" *ngIf="!newPost && !loadingFeed" (click)="newBlogForm()"></a>
-  </div>
-
-  <div>
-    <div class="blog" [ngClass]="currentBlog">
-      <div class="row blog-header-bottom-spacing">
-        <div class="col-sm-9">
-          <h3 class="main-title-color">{{ title }}</h3>
-        </div>
-        <div class="col-sm-3 text-right small" style="margin-top: 15px;">
-          <span class="text-muted"> {{ createdBy }}</span>&nbsp;&nbsp;<i class="fa fa-code"></i><br>
-          <!-- <span class="text-muted">Emile Dodin</span>&nbsp;&nbsp;<i class="fa fa-arrow-left"></i><br> -->
-          <span class="text-muted">{{ createdAt | date: 'dd MMM, yyyy' }}</span>&nbsp;&nbsp;<i class="fa fa-calendar"></i><br>
-        </div>
-      </div>
-      <p>
-
-        <markdown [data] = "body"> 
-          
-        </markdown>
-      </p>
-      <div class="row text-strong">
-        <div class="col-md-8">
-          <a routerLink="/blog" (click)="editBlog()">Edit</a>&nbsp; 
-          <a routerLink="/blog" (click)="deleteBlog()">Delete</a>
-        </div>
-        <div class="col-md-4 text-right "><strong class="btn btn-primary"><span class="text-muted">cout << </span>read_all()</strong></div>
-      </div>
-    </div>
-
-    <hr class="af-separator">
-  </div>
+  <p><markdown [data] = "body"></markdown></p>
+  <hr class="af-separator">
 </div>
-
+   
 <div class="af-container-blue">
-    text! Footer!
+    TODO Complete the footer!
 </div>

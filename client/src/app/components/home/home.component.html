@@ -6,7 +6,7 @@
       </div>
       <div class="col-md-4" style="padding-top: 40px;">
         <h5 class="text-center text-muted font-italic">New posts every <span class="alternative-title-color">Tuesday</span> morning</h5> 
-        <h6 class="text-center text-muted font-italic"><a href="#">What is Qt?</a> - <a href="#">Clean Code?</a> - <a href="#">Who am I?</a></h6>
+        <h6 class="text-center text-muted font-italic"><a [routerLink]="['/about']" [queryParams]="{title: 'what-is-qt'}">What is Qt?</a> - <a [routerLink]="['/about']" [queryParams]="{title: 'what-is-clean'}">Clean Code?</a> - <a [routerLink]="['/about']" [queryParams]="{title: 'who-am-i'}">Who am I?</a></h6>
       </div>
     </div>
   </div>
