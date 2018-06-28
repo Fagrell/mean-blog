@@ -6,6 +6,9 @@
 .alternative-title-color {
   color: #6ccc00;
 }
+.text-handwritten {
+  font-family: 'Amatic SC', cursive;
+}
 
 h1 {
   font-size: 60px;
@@ -41,13 +44,13 @@ body {
 .af-container-blue {
   background: #223D6B;
   color: #fff;
-  padding: 80px 140px 60px 140px;
+  padding: 80px 100px 60px 100px;
   z-index: 0;
 }
 
 .af-container-white {
   color: #000;
-  padding: 80px 140px 60px 140px;
+  padding: 80px 100px 60px 100px;
   box-shadow: 0px 0px 40px rgb(8, 41, 70);
   position: relative;
   z-index: 2;
