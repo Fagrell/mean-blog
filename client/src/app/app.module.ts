@@ -26,6 +26,7 @@ import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
 
 // Pipes
 import { ReplaceSpacePipe } from './pipes/replace-space.pipe';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ReplaceSpacePipe } from './pipes/replace-space.pipe';
     DashboardComponent,
     ProfileComponent,
     BlogEditComponent,
-    ReplaceSpacePipe
+    ReplaceSpacePipe,
+    FooterComponent
   ],
 
   imports: [
