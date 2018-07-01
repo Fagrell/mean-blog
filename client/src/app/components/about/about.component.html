@@ -5,22 +5,18 @@
       
     </div>
     <div class="col-md-10 vcenter">
-      <h1 class="alternative-title-color" id="who-am-i">Who am I?</h1>
+      <h1 class="alternative-title-color" id="who-am-i">About</h1>
       <p>
-        My name is Alexander Fagrell and I'm a software developer enthusiast and do not give up until I know the ins and outs of how something works. I've several years of experience using modern C++ and Qt (Widgets and Quick) and aim to share my experience and deepen my knowledge with this blog. 
-        I encourage you to engage in the comment system and <span class="alternative-title-color">contribute by sharing your experience and thoughts.</span> Perhaps something was unclear or incorrect?
+        My name is Alexander Fagrell and I'm a software developer and have several years of experience using modern C++ and Qt. With this blog, I aim to deepen my knowledge by exploring the ins and outs of the Qt framework and to share my findings and conclusions.
+        I encourage you to engage in the comment system and <span class="alternative-title-color">contribute by sharing your experience, knowledge and thoughts.</span> Perhaps something was unclear?
       </p>
       <p>
-        In addition to software development, I enjoy coaching and mentoring people, excercising at the gym and as well as travelling. I'm from Stockholm, Sweden, but currently live and work in London, UK, for a security company as a lead software developer. 
+        In addition to software development, I enjoy coaching and mentoring people, excercising at the gym and as well as travelling. I'm from Stockholm, Sweden, but live and work in London, UK, for a security company as a lead software developer. 
       </p>
       <div class="af-icons text-right">
-        <div class="text-muted text-handwritten" style="font-size: 30px; margin-right: 130px">
-          Contact me<img src="../../../assets/images/arrow.svg" style="width: 40px; margin-top: 20px; margin-left: 10px;">
+        <div class="text-muted text-handwritten" style="font-size: 30px; margin-right: 20px">
+            <a class="text-muted" [routerLink]="" (click)="doScroll('contact-me', 0)">Contact me<img src="../../../assets/images/arrow.svg" style="width: 40px; margin-top: 20px; margin-left: 10px;"></a>
         </div>
-        <a href="https://www.linkedin.com/in/alexander-fagrell/" class="fa fa-linkedin" target="_blank"></a>
-        <a href="https://github.com/Fagrell" class="fa fa-github" target="_blank"></a>
-        <a href="https://twitter.com/AFagrell" class="fa fa-twitter" target="_blank"></a>
-        <a href="https://stackoverflow.com/users/5874704/a-fagrell/" class="fa fa-stack-overflow" target="_blank"></a>
       </div>
     </div>
   </div>
@@ -30,7 +26,7 @@
   <h1 class="text-center main-title-color" id="what-is-qt">What is Qt?</h1>
   <p>
     Qt is a collection of many C++ libraries and tools which drastically reduced the complexity of creating applications (especially GUI applications) on a range of different platforms. Some of the supported platforms are Linux, OS X, Windows, VxWorks, QNX, Android, iOS, BlackBerry, Sailfish OS and others. 
-    Not only is Qt very impressive for its GUI toolkit, but it also excels in other areas such as networking, databases, OpenGL et.c. for cross-platform development.
+    Not only is Qt very impressive for its GUI toolkit, but it also excels in other areas for cross-platform development such as networking, databases, OpenGL et.c.
   </p>
   <p>
     In addition to C++, Qt includes an amazing extension language called QML. QML is part of Qt Quick, and is a declarative object description language to create dynamic and fluid UIs on mobile, embedded and desktop systems. QML also integrates JavaScript application which enables developers to write application in QML alone. However, the preferred approach is to use QML for the frontend and C++ for the backend.
@@ -49,49 +45,5 @@
   <hr class="af-separator">
 
   <h1 class="text-center main-title-color" id="what-is-clean">What is Clean Code?</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  ** - from [Qt's wikipedia](https://en.wikipedia.org/wiki/Qt_(software))** From 
-</div>
-
-
-<div class="af-container-blue" id="section-contact">
-  <h1 class="text-center">Contact</h1>
-  <form action="mailto:fagrell@outlook.com" method="post" enctype="text/plain">
-    <div class="row">
-      <div class="col-md-6 form-group">
-          <label for="form_name">Firstname *</label>
-          <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required>
-        </div>
-       <div class="col-md-6 form-group">
-        <label for="form_lastname">Lastname</label>
-        <input id="form_lastname" type="text" name="lastname" class="form-control" placeholder="Please enter your lastname">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 form-group">
-        <label for="form_email">Email *</label>
-        <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required>
-      </div>
-       <div class="col-md-6 form-group">
-        <label for="form_phone">Phone </label>
-        <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Please enter your phone number">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 form-group">
-        <label for="form_message">Message *</label>
-        <textarea id="form_message" name="message" class="form-control" placeholder="Message here *" rows="4" required></textarea>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 text-right">
-        <input type="submit" class="btn btn-success btn-send" value="Send message">
-      </div>
-    </div>
-    <div class="row">
-      <div class="cold-md-12">
-        <em><strong>*</strong> These fields are required.</em>
-      </div>
-    </div>
-  </form>
+  I first read about clean code in the book "Clean Code: A Handbook of Agile Software Craftsmanship" by Robert C. Martin (aka Uncle Bob). 
 </div>

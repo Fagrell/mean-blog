@@ -13,11 +13,11 @@ export class AboutComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  doScroll(title: string) {
+  doScroll(title: string, offset: number) {
     try {
       const elements = document.getElementById(title);
       elements.scrollIntoView();
-      window.scrollBy(0, -80);
+      window.scrollBy(0, offset);
     } finally {
 
     }
@@ -28,7 +28,7 @@ export class AboutComponent implements OnInit {
     if (!title) {
       return;
     }
-    this.doScroll(title);
+    this.doScroll(title, -80);
   }
 
 }
