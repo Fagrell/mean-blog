@@ -49,6 +49,7 @@ export class BlogComponent implements OnInit {
           this.body = data['blog'].body;
           this.createdBy = data['blog'].createdBy;
           this.createdAt = data['blog'].createdAt;
+          window.scroll(0,0);
 
         });
       });
