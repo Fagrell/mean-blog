@@ -90,7 +90,7 @@ module.exports = (router) => {
     Blog.findOne({"searchTitle": req.body.title.toLowerCase()}, { summary: 0, searchTitle: 0 }, (err, blog) => {
 
       if (err) {
-        return res.json({ success: false, message: 'Could not found blog. Error ' + err});
+        return res.json({ success: false, message: 'Could not find blog. Error ' + err});
       }
 
       if (!blog) {
@@ -99,6 +99,25 @@ module.exports = (router) => {
 
       return res.json({ success: true, blog: blog});
     });
+  });
+
+  router.post('/few', (req, res) => {
+
+    if (!req.body.amount) {
+      return res.json({ success: false, message: 'You need to provide the amount of blog posts that you are requesting.'});
+    }
+
+    Blog.find({}, { title: 1}, (err, blogs) => {
+      if (err) {
+        return res.json({ success: false, message: 'Could not find blog. Error ' + err});
+      }
+
+      if (!blogs) {
+        return res.json({ success: false, message: 'No blogs have been created.'});
+      }
+
+      return res.json({ success: true, blogs: blogs});
+    }).sort({ '_id': -1 }).limit(req.body.amount);
   });
 
   return router;

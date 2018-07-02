@@ -23,8 +23,13 @@ export class BlogService {
     return this.http.get(this.auth.domain + '/blog/all', { headers: headers });
   }
 
-  oneBlog(title) {
+  oneBlog(title: string) {
     const headers = this.auth.createAuthenticationHeaders();
     return this.http.post(this.auth.domain + '/blog/one', { title: title }, { headers: headers });
+  }
+
+  fewBlogs(amount: number) {
+    const headers = this.auth.createAuthenticationHeaders();
+    return this.http.post(this.auth.domain + '/blog/few', { amount: amount }, { headers: headers });
   }
 }
