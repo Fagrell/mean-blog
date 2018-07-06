@@ -43,6 +43,8 @@ body {
 
 .af-container-blue {
   background: #223D6B;
+  background-image: url(assets/images/banner.svg);
+  background-size: 100% 100%;
   color: #fff;
   padding: 80px 100px 60px 100px;
   z-index: 0;
