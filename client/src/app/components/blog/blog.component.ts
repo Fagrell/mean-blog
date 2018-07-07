@@ -16,6 +16,7 @@ export class BlogComponent implements OnInit {
   body: String = "";
   createdBy: String = "";
   createdAt: Date;
+  tags: Array<string>;
 
   public blogMessage: String = "";
 
@@ -49,6 +50,7 @@ export class BlogComponent implements OnInit {
           this.body = data['blog'].body;
           this.createdBy = data['blog'].createdBy;
           this.createdAt = data['blog'].createdAt;
+          this.tags = data['blog'].tags;
           window.scroll(0,0);
 
         });

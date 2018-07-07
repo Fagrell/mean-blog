@@ -3,7 +3,12 @@
     <h3 class="text-center">{{ title }}</h3>
   </div>
   <div class="alternative-title-color text-right">
-    {{ createdBy }}, {{ createdAt | date: 'dd MMM, yyyy' }}
+    <strong>{{ createdBy }}</strong>&nbsp;&nbsp;<span class="text-muted">{{ createdAt | date: 'dd MMM, yyyy' }}</span>
+  </div>
+  <div class="text-right">
+    <span *ngFor="let tag of tags">
+      <span class="badge badge-primary">{{ tag }}</span>&nbsp;
+    </span>
   </div>
 </div>
 
