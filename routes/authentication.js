@@ -1,9 +1,16 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+const checkAuth = require('./checkAuth');
 
 module.exports = (router) => {
   router.post('/register', (req, res) => {
+    const authenticated = checkAuth(req.headers['auth']);
+    if (!authenticated.success) {
+      return res.json(authenticated);
+    }
+    req.decoded = authenticated.decoded;
+
     if (!req.body.email) {
       return res.json({ success: false, message: 'You need to provide an e-mail.'});
     }
@@ -77,23 +84,13 @@ module.exports = (router) => {
     });
   });
 
-  router.use((req, res, next) => {
-    const token = req.headers['auth'];
-    if (!token) {
-      return res.json({ success: false, message: 'No token provided'});
-    }
-
-    jwt.verify(token, config.secret, (err, decoded) => {
-      if (err) {
-        return res.json({ success: false, message: 'Token invalid: ' + err });
-      }
-
-      req.decoded = decoded;
-      next();
-    });
-  });
-
   router.get('/profile', (req, res) => {
+    const authenticated = checkAuth(req.headers['auth']);
+    if (!authenticated.success) {
+      return res.json(authenticated);
+    }
+    req.decoded = authenticated.decoded;
+
     User.findOne({ _id : req.decoded.userId}).select('username email').exec((err, user) => {
       if (err) {
         return res.json({ success: false, message: err});

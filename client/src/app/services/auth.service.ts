@@ -42,7 +42,8 @@ export class AuthService {
   }
 
   registerUser(user) {
-    return this.http.post(this.domain + '/authentication/register', user);
+    const headers = this.createAuthenticationHeaders();
+    return this.http.post(this.domain + '/authentication/register', user, { headers: headers });
   }
 
   loginUser(user) {

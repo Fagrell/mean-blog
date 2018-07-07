@@ -1,9 +1,15 @@
 const User = require('../models/user');
 const Blog = require('../models/blog');
 const config = require('../config/database');
+const checkAuth = require('./checkAuth');
 
 module.exports = (router) => {
   router.post('/new', (req, res) => {
+    const authenticated = checkAuth(req.headers['auth']);
+    if (!authenticated.success) {
+      return res.json(authenticated);
+    }
+    req.decoded = authenticated.decoded;
 
     if (!req.body.title) {
       return res.json({ success: false, message: 'You need to provide a title'});

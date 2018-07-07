@@ -19,17 +19,14 @@ export class BlogService {
   }
 
   allBlogs() {
-    const headers = this.auth.createAuthenticationHeaders();
-    return this.http.get(this.auth.domain + '/blog/all', { headers: headers });
+    return this.http.get(this.auth.domain + '/blog/all');
   }
 
   oneBlog(title: string) {
-    const headers = this.auth.createAuthenticationHeaders();
-    return this.http.post(this.auth.domain + '/blog/one', { title: title }, { headers: headers });
+    return this.http.post(this.auth.domain + '/blog/one', { title: title });
   }
 
   fewBlogs(amount: number) {
-    const headers = this.auth.createAuthenticationHeaders();
-    return this.http.post(this.auth.domain + '/blog/few', { amount: amount }, { headers: headers });
+    return this.http.post(this.auth.domain + '/blog/few', { amount: amount });
   }
 }
