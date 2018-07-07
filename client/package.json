@@ -26,6 +26,7 @@
     "font-awesome": "^4.7.0",
     "karma": "^2.0.2",
     "karma-jasmine": "^1.1.2",
+    "ngx-disqus": "^2.3.7",
     "ngx-markdown": "^1.6.0",
     "prismjs": "^1.14.0",
     "rxjs": "^6.0.0",

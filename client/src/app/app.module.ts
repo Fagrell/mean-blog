@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppRoutingModule } from './app-routing.module';
+import { DisqusModule } from "ngx-disqus";
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -51,7 +52,8 @@ import { FooterComponent } from './components/footer/footer.component';
     HttpClientModule,
     FlashMessagesModule.forRoot(),
     MarkdownModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    DisqusModule.forRoot('cleanqt')
   ],
 
   providers: [

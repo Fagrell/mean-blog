@@ -8,7 +8,7 @@ import { BlogService } from '../../services/blog.service';
   styleUrls: ['./blog.component.css']
 })
 export class BlogComponent implements OnInit {
-
+  public href: string = "";
   message: String = "";
   messageClass: String = "";
   loadingFeed: Boolean  = false;
@@ -39,22 +39,24 @@ export class BlogComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-        if (!params['title']) {
-          return; //handle it!
+      if (!params['title']) {
+        return; //handle it!
+      }
+      this.blog.oneBlog(params['title']).subscribe(data => {
+        if(!data['success']) {
+          return console.log("Failed getting blog, becase: " + data['message']);
         }
-        this.blog.oneBlog(params['title']).subscribe(data => {
-          if(!data['success']) {
-            return console.log("Failed getting blog, becase: " + data['message']);
-          }
-          this.title = data['blog'].title;
-          this.body = data['blog'].body;
-          this.createdBy = data['blog'].createdBy;
-          this.createdAt = data['blog'].createdAt;
-          this.tags = data['blog'].tags;
-          window.scroll(0,0);
+        this.title = data['blog'].title;
+        this.body = data['blog'].body;
+        this.createdBy = data['blog'].createdBy;
+        this.createdAt = data['blog'].createdAt;
+        this.tags = data['blog'].tags;
+        window.scroll(0,0);
 
-        });
       });
+    });
+
+    this.href = this.router.url;
   }
 
 }
