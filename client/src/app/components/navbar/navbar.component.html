@@ -8,6 +8,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto navbar-left"></ul>
       <ul class="navbar-nav navbar-right">
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link"  routerLink="/home">Blog</a>
+        </li>
         <li *ngIf="authService.userLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link"  routerLink="/dashboard">Dashboard</a>
         </li>
@@ -16,9 +19,6 @@
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link"  routerLink="/about">About</a>
-        </li>
-        <li *ngIf="!authService.userLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/login">Login</a>
         </li>
         <li *ngIf="authService.userLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="#" (click)="onLogoutClick()">Logout</a>
