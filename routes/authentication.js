@@ -5,56 +5,54 @@ const checkAuth = require('./checkAuth');
 
 module.exports = (router) => {
   router.post('/register', (req, res) => {
-    const authenticated = checkAuth(req.headers['auth']);
-    if (!authenticated.success) {
-      return res.json(authenticated);
-    }
-    req.decoded = authenticated.decoded;
-
-    if (!req.body.email) {
-      return res.json({ success: false, message: 'You need to provide an e-mail.'});
-    }
-
-    if (!req.body.username) {
-      return res.json({ success: false, message: 'You need to provide a username'});
-    }
-
-    if (!req.body.password) {
-      return res.json({ success: false, message: 'You need to provide a password'});
-    }
-
-    let user = new User({
-      email: req.body.email.toLowerCase(),
-      username: req.body.username.toLowerCase(),
-      password: req.body.password
-    });
-    user.save((err) => {
+    checkAuth(req.headers['auth'], (err, decoded) => {
       if (err) {
-
-        if (err.errors) {
-          if (err.errors.email) {
-            return res.json({ success: false, message: err.errors.email.message});
-          }
-          if (err.errors.username) {
-            return res.json({ success: false, message: err.errors.username.message});
-          }
-          if (err.errors.password) {
-            return res.json({ success: false, message: err.errors.password.message});
-          }
-          return res.json({ success: false, message: 'Could not save user. Error ' + err});
-        }
-
-        switch(err.code) {
-          case 11000:
-            return res.json({ success:false, message: 'Username or e-mail already exists'});
-          default:
-            return res.json({ success:false, message: 'Could not save user. Error ' + err});
-        }
+        return res.json({success: false, message: err});
       }
-      return res.json({ success: true, message: 'User registered!'});
+  
+      if (!req.body.email) {
+        return res.json({ success: false, message: 'You need to provide an e-mail.'});
+      }
+
+      if (!req.body.username) {
+        return res.json({ success: false, message: 'You need to provide a username'});
+      }
+
+      if (!req.body.password) {
+        return res.json({ success: false, message: 'You need to provide a password'});
+      }
+
+      let user = new User({
+        email: req.body.email.toLowerCase(),
+        username: req.body.username.toLowerCase(),
+        password: req.body.password
+      });
+      user.save((err) => {
+        if (err) {
+
+          if (err.errors) {
+            if (err.errors.email) {
+              return res.json({ success: false, message: err.errors.email.message});
+            }
+            if (err.errors.username) {
+              return res.json({ success: false, message: err.errors.username.message});
+            }
+            if (err.errors.password) {
+              return res.json({ success: false, message: err.errors.password.message});
+            }
+            return res.json({ success: false, message: 'Could not save user. Error ' + err});
+          }
+
+          switch(err.code) {
+            case 11000:
+              return res.json({ success:false, message: 'Username or e-mail already exists'});
+            default:
+              return res.json({ success:false, message: 'Could not save user. Error ' + err});
+          }
+        }
+        return res.json({ success: true, message: 'User registered!'});
+      });
     });
-
-
   });
 
   router.post('/login', (req, res) => {
@@ -85,22 +83,23 @@ module.exports = (router) => {
   });
 
   router.get('/profile', (req, res) => {
-    const authenticated = checkAuth(req.headers['auth']);
-    if (!authenticated.success) {
-      return res.json(authenticated);
-    }
-    req.decoded = authenticated.decoded;
-
-    User.findOne({ _id : req.decoded.userId}).select('username email').exec((err, user) => {
+    checkAuth(req.headers['auth'], (err, decoded) => {
       if (err) {
-        return res.json({ success: false, message: err});
+        return res.json({success: false, message: err});
       }
 
-      if (!user) {
-        return res.json({ success: false, message: 'User could not be found'})
-      }
-
-      return res.json({ success: true, user: user});
+      User.findOne({ _id : decoded.userId}).select('username email').exec((err, user) => {
+        
+        if (err) {
+          return res.json({ success: false, message: err});
+        }
+  
+        if (!user) {
+          return res.json({ success: false, message: 'User could not be found'})
+        }
+  
+        return res.json({ success: true, user: user});
+      });
     });
   });
 

@@ -1,16 +1,16 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 
-module.exports = (token) => {
+module.exports = (token, callback) => {
   if (!token) {
-    return { success: false, message: 'No token provided' };
+    return callback('No token provided', null);
   }
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
-      return { success: false, message: 'Token invalid: ' + err };
+     return callback('Token invalid: ' + err, null);
     }
 
-    return { success: true, decoded: decoded };
+    return callback(null, decoded);
   });
 };

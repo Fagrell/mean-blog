@@ -5,70 +5,70 @@ const checkAuth = require('./checkAuth');
 
 module.exports = (router) => {
   router.post('/new', (req, res) => {
-    const authenticated = checkAuth(req.headers['auth']);
-    if (!authenticated.success) {
-      return res.json(authenticated);
-    }
-    req.decoded = authenticated.decoded;
-
-    if (!req.body.title) {
-      return res.json({ success: false, message: 'You need to provide a title'});
-    }
-
-    if (!req.body.summary) {
-      return res.json({ success: false, message: 'You need to provide a summary'});
-    }
-
-    if (!req.body.body) {
-      return res.json({ success: false, message: 'You need to provide a body'});
-    }
-
-    if (!req.body.createdBy) {
-      return res.json({ success: false, message: 'You need to provide a user object id'});
-    }
-
-    if (!req.body.tags) {
-      return res.json({ success: false, message: 'You need to provide at least one tag'});
-    }
-
-    if (typeof req.body.public === "undefined") {
-      return res.json({ success: false, message: 'You need to specify if the blog post should be public'});
-    }
-
-    let searchTitle = req.body.title.split(' ').join('-');
-
-    let blog = new Blog({
-      title: req.body.title,
-      searchTitle: searchTitle,
-      summary: req.body.summary,
-      body: req.body.body,
-      createdBy: req.body.createdBy,
-      tags: req.body.tags,
-      public: req.body.public
-    });
-
-    blog.save((err) => {
+    checkAuth(req.headers['auth'], (err, decoded) => {
       if (err) {
-        if (err.errors) {
-          if (err.errors.title) {
-            return res.json({ success: false, message: err.errors.title.message});
-          }
-
-          if (err.errors.summary) {
-            return res.json({ success: false, message: err.errors.summary.message});
-          }
-
-          if (err.errors.body) {
-            return res.json({ success: false, message: err.errors.body.message});
-          }
-
-          return res.json({ success: false, message: 'Could not save blog. Error ' + err});
-        }
-        
-        return res.json({ success: false, message: 'Could not save blog. Error ' + err});
-        
+        return res.json({success: false, message: err});
       }
-      return res.json({ success: true, message: 'Blog registered!'});
+
+      if (!req.body.title) {
+        return res.json({ success: false, message: 'You need to provide a title'});
+      }
+
+      if (!req.body.summary) {
+        return res.json({ success: false, message: 'You need to provide a summary'});
+      }
+
+      if (!req.body.body) {
+        return res.json({ success: false, message: 'You need to provide a body'});
+      }
+
+      if (!req.body.createdBy) {
+        return res.json({ success: false, message: 'You need to provide a user object id'});
+      }
+
+      if (!req.body.tags) {
+        return res.json({ success: false, message: 'You need to provide at least one tag'});
+      }
+
+      if (typeof req.body.public === "undefined") {
+        return res.json({ success: false, message: 'You need to specify if the blog post should be public'});
+      }
+
+      let searchTitle = req.body.title.split(' ').join('-');
+
+      let blog = new Blog({
+        title: req.body.title,
+        searchTitle: searchTitle,
+        summary: req.body.summary,
+        body: req.body.body,
+        createdBy: req.body.createdBy,
+        tags: req.body.tags,
+        public: req.body.public
+      });
+
+      blog.save((err) => {
+        if (err) {
+          if (err.errors) {
+            if (err.errors.title) {
+              return res.json({ success: false, message: err.errors.title.message});
+            }
+
+            if (err.errors.summary) {
+              return res.json({ success: false, message: err.errors.summary.message});
+            }
+
+            if (err.errors.body) {
+              return res.json({ success: false, message: err.errors.body.message});
+            }
+
+            return res.json({ success: false, message: 'Could not save blog. Error ' + err});
+          }
+          
+          return res.json({ success: false, message: 'Could not save blog. Error ' + err});
+          
+        }
+        return res.json({ success: true, message: 'Blog registered!'});
+      });
     });
   });
 
