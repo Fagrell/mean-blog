@@ -14,6 +14,15 @@
 
 <div class="af-container-white">
   <p><markdown [data] = "body"></markdown></p>
+  <div class="text-right">
+    <share-buttons [theme]="'default'"
+    [include]="['facebook','twitter','google','linkedin','reddit','tumblr','whatsapp','messenger','xing']"
+    [show]="4"
+    [showCount]="true"
+    [url]="href"
+    [autoSetMeta]="false"
+    ></share-buttons>
+  </div>
   <hr class="af-separator">
   <disqus [identifier]="href"></disqus>
 </div>

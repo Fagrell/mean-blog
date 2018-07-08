@@ -56,7 +56,7 @@ export class BlogComponent implements OnInit {
       });
     });
 
-    this.href = this.router.url;
+    this.href = window.location.href;
   }
 
 }

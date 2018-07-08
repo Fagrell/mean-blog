@@ -13,11 +13,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppRoutingModule } from './app-routing.module';
 import { DisqusModule } from "ngx-disqus";
+import { ShareButtonsModule } from '@ngx-share/buttons';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -50,10 +51,12 @@ import { FooterComponent } from './components/footer/footer.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpClientJsonpModule, //used by ShareButtonModule
     FlashMessagesModule.forRoot(),
     MarkdownModule.forRoot(),
     AppRoutingModule,
-    DisqusModule.forRoot('cleanqt')
+    DisqusModule.forRoot('cleanqt'),
+    ShareButtonsModule.forRoot()
   ],
 
   providers: [
