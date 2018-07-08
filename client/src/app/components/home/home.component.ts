@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { BlogService } from '../../services/blog.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,27 +10,16 @@ import { BlogService } from '../../services/blog.service';
 })
 export class HomeComponent implements OnInit {
 
-  message: String = "";
-  messageClass: String = "";
-  loadingFeed: Boolean  = false;
   blogs;
-
-  public blogMessage: String = "";
 
   constructor(
     private router: Router,
-    private blog: BlogService
+    private blog: BlogService,
+    private auth: AuthService
   ) {}
 
   newBlogForm() {
     this.router.navigate(['/blog-edit']);
-  }
-
-  refreshFeed() {
-    this.loadingFeed = true;
-    setTimeout(() => {
-      this.loadingFeed = false;
-    }, 4000)
   }
 
   ngOnInit() {

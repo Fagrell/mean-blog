@@ -10,18 +10,10 @@
       </div>
     </div>
   </div>
-  <!-- 
-  <div class="row show-hide-message">
-    <div [ngClass]="messageClass">
-      {{ message }}
-    </div>
-  </div> -->
-  
   <div class="af-container-white">
   
     <div class="text-right">
-      <a routerLink="/blog" class="fa fa-refresh" *ngIf="!newPost" (click)="refreshFeed()"></a>&nbsp;&nbsp;
-      <a routerLink="/blog" class="fa fa-plus" *ngIf="!newPost && !loadingFeed" (click)="newBlogForm()"></a>
+      <a *ngIf="auth.userLoggedIn()" routerLink="/blog" class="fa fa-plus" (click)="newBlogForm()"></a>
     </div>
   
     <div *ngFor="let blog of blogs">
@@ -48,8 +40,8 @@
         </p>
         <div class="row text-strong">
           <div class="col-md-8">
-            <a routerLink="/blog" (click)="editBlog()">Edit</a>&nbsp; 
-            <a routerLink="/blog" (click)="deleteBlog()">Delete</a>
+            <a *ngIf="auth.userLoggedIn()" routerLink="/blog" (click)="editBlog()">Edit</a>&nbsp; 
+            <a *ngIf="auth.userLoggedIn()" routerLink="/blog" (click)="deleteBlog()">Delete</a>
           </div>
           <div class="col-md-4 text-right ">
             <strong class="btn btn-primary" [routerLink]="['/blog', blog.title | replaceSpace: '-' | lowercase ]">
