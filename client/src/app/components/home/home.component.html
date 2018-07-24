@@ -17,12 +17,15 @@
     </div>
   
     <div *ngFor="let blog of blogs">
-      <div class="blog">
+      <div *ngIf="blog.public || auth.userLoggedIn()" class="blog">
         <div class="row blog-header-bottom-spacing">
           <div class="col-sm-9">
             <h3 class="main-title-color">{{ blog.title }}</h3>
           </div>
           <div class="col-sm-3 text-right small" style="margin-top: 15px;">
+            <div *ngIf="!blog.public"> 
+              <span class="text-warning"> NOT PUBLIC </span>
+            </div>
             <span class="text-muted"> {{ blog.createdBy }}</span>&nbsp;&nbsp;<i class="fa fa-code"></i><br>
             <!-- <span class="text-muted">Emile Dodin</span>&nbsp;&nbsp;<i class="fa fa-arrow-left"></i><br> -->
             <span class="text-muted">{{ blog.createdAt | date: 'dd MMM, yyyy' }}</span>&nbsp;&nbsp;<i class="fa fa-calendar"></i><br>
@@ -40,7 +43,7 @@
         </p>
         <div class="row text-strong">
           <div class="col-md-8">
-            <a *ngIf="auth.userLoggedIn()" routerLink="/blog" (click)="editBlog()">Edit</a>&nbsp; 
+            <a *ngIf="auth.userLoggedIn()" [routerLink]="['/blog-edit', blog.title | replaceSpace: '-' | lowercase ]">Edit</a>&nbsp; 
             <a *ngIf="auth.userLoggedIn()" routerLink="/blog" (click)="deleteBlog()">Delete</a>
           </div>
           <div class="col-md-4 text-right ">
@@ -49,8 +52,8 @@
             </strong>
           </div>
         </div>
-      </div>
 
-      <hr class="af-separator">
+        <hr class="af-separator" style="margin-bottom:50px">
+      </div>
     </div>
   </div>
