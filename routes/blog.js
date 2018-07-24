@@ -93,7 +93,7 @@ module.exports = (router) => {
       return res.json({ success: false, message: 'You need to provide a blog title'});
     }
 
-    Blog.findOne({"searchTitle": req.body.title.toLowerCase()}, { summary: 0, searchTitle: 0 }, (err, blog) => {
+    Blog.findOne({"searchTitle": req.body.title.toLowerCase()}, { searchTitle: 0 }, (err, blog) => {
 
       if (err) {
         return res.json({ success: false, message: 'Could not find blog. Error ' + err});

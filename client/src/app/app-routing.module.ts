@@ -40,6 +40,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'blog-edit/:title',
+    component: BlogEditComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'about',
     component: AboutComponent
   },

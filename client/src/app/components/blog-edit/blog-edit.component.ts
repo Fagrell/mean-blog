@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../../services/blog.service';
 import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-edit',
@@ -14,6 +15,7 @@ export class BlogEditComponent implements OnInit {
   direction: string = 'horizontal'
   editing: Boolean = true;
   username: string = '';
+  newBlog: Boolean = true;
 
 
   splitTags(controls) {
@@ -23,17 +25,9 @@ export class BlogEditComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private blog: BlogService,
-    private auth: AuthService
+    private auth: AuthService,
+    private route: ActivatedRoute
   ) { 
-    this.createForm();
-
-    this.auth.getProfile().subscribe(profile => {
-      if (!profile['success']) {
-        return;
-      }
-      this.username = profile['user']['username'];
-    });
-    
   }
 
   createForm() {
@@ -65,11 +59,11 @@ export class BlogEditComponent implements OnInit {
   }
 
   onEditClicked() {
-    this.editing= true;
+    this.editing = true;
   }
 
   onPreviewClicked() {
-    this.editing= false;
+    this.editing = false;
   }
 
   onSaveSubmit() {
@@ -93,6 +87,32 @@ export class BlogEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createForm();
+    this.newBlog = true;
+    this.route.params.subscribe(params => {
+      if (!params['title']) {
+        return; //handle it!
+      }
+      this.blog.oneBlog(params['title']).subscribe(data => {
+        if(!data['success']) {
+          return;
+        }
+        this.form.controls.title.setValue(data['blog'].title);
+        this.form.controls.summaryMessage.setValue(data['blog'].summary);
+        this.form.controls.blogMessage.setValue(data['blog'].body);
+        this.form.controls.tagsList.setValue(data['blog'].tags);
+        this.form.controls.public.setValue(data['blog'].public);
+        this.newBlog = false;
+
+      });
+    });
+
+    this.auth.getProfile().subscribe(profile => {
+      if (!profile['success']) {
+        return;
+      }
+      this.username = profile['user']['username'];
+    });
   }
 
 }
