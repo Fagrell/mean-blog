@@ -72,6 +72,84 @@ module.exports = (router) => {
     });
   });
 
+  router.put('/update', (req, res) => {
+    checkAuth(req.headers['auth'], (err, decoded) => {
+      if (err) {
+        return res.json({success: false, message: err});
+      }
+
+      if (!req.body._id) {
+        return res.json({ success: false, message: 'No blog ID provided'});
+      }
+
+      if (!req.body.title) {
+        return res.json({ success: false, message: 'You need to provide a title'});
+      }
+
+      if (!req.body.summary) {
+        return res.json({ success: false, message: 'You need to provide a summary'});
+      }
+
+      if (!req.body.body) {
+        return res.json({ success: false, message: 'You need to provide a body'});
+      }
+
+      if (!req.body.editedBy) {
+        return res.json({ success: false, message: 'You need to provide a user object id'});
+      }
+
+      if (!req.body.tags) {
+        return res.json({ success: false, message: 'You need to provide at least one tag'});
+      }
+
+      if (typeof req.body.public === "undefined") {
+        return res.json({ success: false, message: 'You need to specify if the blog post should be public'});
+      }
+
+      Blog.findById(req.body._id, (err, blog) => {
+        if (err) {
+          return res.json({ success: false, message: 'Inavlid blog ID' });
+        }
+
+        if (!blog) {
+          return res.json({ success: false, message: 'No blog found'});
+        }
+
+        blog.title =  req.body.title;
+        blog.searchTitle = req.body.title.split(' ').join('-');
+        blog.summary = req.body.summary;
+        blog.body = req.body.body;
+        blog.editedBy = req.body.editedBy;
+        blog.tags = req.body.tags;
+        blog.public = req.body.public;
+
+        blog.save((err) => {
+          if (err) {
+            if (err.errors) {
+              if (err.errors.title) {
+                return res.json({ success: false, message: err.errors.title.message});
+              }
+  
+              if (err.errors.summary) {
+                return res.json({ success: false, message: err.errors.summary.message});
+              }
+  
+              if (err.errors.body) {
+                return res.json({ success: false, message: err.errors.body.message});
+              }
+  
+              return res.json({ success: false, message: 'Could not update blog. Error ' + err});
+            }
+            
+            return res.json({ success: false, message: 'Could not update blog. Error ' + err});
+            
+          }
+          return res.json({ success: true, message: 'Blog updated!'});
+        });
+      });
+    });
+  });
+
   router.get('/all', (req, res) => {
     Blog.find({}, { body: 0, searchTitle: 0 }, (err, blogs) => {
 

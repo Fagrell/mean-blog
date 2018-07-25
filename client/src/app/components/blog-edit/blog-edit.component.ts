@@ -16,10 +16,11 @@ export class BlogEditComponent implements OnInit {
   editing: Boolean = true;
   username: string = '';
   newBlog: Boolean = true;
+  id;
 
 
-  splitTags(controls) {
-    return controls.value.replace(/\s/g, '').split(',');
+  splitTags(controlType: string) {
+    return controlType.replace(/\s/g, '').split(',');
   }
 
   constructor(
@@ -36,26 +37,8 @@ export class BlogEditComponent implements OnInit {
       summaryMessage: [''],
       blogMessage: [''],
       publicCheckBox: [false],
-      tagsList: ['', this.validateTags.bind(this)]
+      tagsList: ['']
     });
-  }
-
-  validateTags(controls) {
-    if (!controls) {
-      return null;
-    }
-    //TODO This list should come from a mongoDB model
-    const allowedList = ['cpp', 'c', 'mo'];
-    const tagsList = this.splitTags(controls);
-    for (var i = 0; i < tagsList.length; i++) {
-      const found = allowedList.find(element => {
-        return element === tagsList[i];
-      });
-      if (found === undefined) {
-        return { 'validateTags': true }
-      }
-    }
-    return null;
   }
 
   onEditClicked() {
@@ -67,28 +50,55 @@ export class BlogEditComponent implements OnInit {
   }
 
   onSaveSubmit() {
+    if (this.newBlog) {
+      this.saveBlog();
+      return;
+    }
+    this.updateBlog();
+  }
+
+  saveBlog() {
     const blogData = {
-       title: this.form.controls.title.value,
-       summary: this.form.controls.summaryMessage.value,
-       body: this.form.controls.blogMessage.value,
-       createdBy: this.username,
-       tags: this.splitTags(this.form.controls.tagsList),
-       public: this.form.controls.publicCheckBox.value
-    };
+      title: this.form.controls.title.value,
+      summary: this.form.controls.summaryMessage.value,
+      body: this.form.controls.blogMessage.value,
+      createdBy: this.username,
+      tags: this.splitTags(this.form.controls.tagsList.value),
+      public: this.form.controls.publicCheckBox.value
+   };
 
-    this.blog.newBlog(blogData).subscribe(data => {
-      if (!data['success']) {
-        console.log("Failed creating new blog, because: " + data['message']);
-        return;
-      }
-      console.log("Successfully creating new blog");
-    });
+   this.blog.newBlog(blogData).subscribe(data => {
+     if (!data['success']) {
+       console.log("Failed creating new blog, because: " + data['message']);
+       return;
+     }
+     this.newBlog = false;
+     console.log("Successfully creating new blog");
+   });
+  }
+  
+  updateBlog() {
+    const blogData = {
+      _id: this.id,
+      title: this.form.controls.title.value,
+      summary: this.form.controls.summaryMessage.value,
+      body: this.form.controls.blogMessage.value,
+      editedBy: this.username,
+      tags: this.splitTags(this.form.controls.tagsList.value),
+      public: this.form.controls.publicCheckBox.value
+   };
 
+   this.blog.updateBlog(blogData).subscribe(data => {
+     if (!data['success']) {
+       console.log("Failed updating new blog, because: " + data['message']);
+       return;
+     }
+     console.log("Successfully updated new blog");
+   });
   }
 
   ngOnInit() {
     this.createForm();
-    this.newBlog = true;
     this.route.params.subscribe(params => {
       if (!params['title']) {
         return; //handle it!
@@ -97,11 +107,12 @@ export class BlogEditComponent implements OnInit {
         if(!data['success']) {
           return;
         }
+        this.id = data['blog']._id;
         this.form.controls.title.setValue(data['blog'].title);
         this.form.controls.summaryMessage.setValue(data['blog'].summary);
         this.form.controls.blogMessage.setValue(data['blog'].body);
-        this.form.controls.tagsList.setValue(data['blog'].tags);
-        this.form.controls.public.setValue(data['blog'].public);
+        this.form.controls.tagsList.setValue(data['blog'].tags.join(','));
+        this.form.controls.publicCheckBox.setValue(data['blog'].public);
         this.newBlog = false;
 
       });

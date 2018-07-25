@@ -17,6 +17,11 @@ export class BlogService {
     const headers = this.auth.createAuthenticationHeaders();
     return this.http.post(this.auth.domain + '/blog/new', blog, { headers: headers });
   }
+  
+  updateBlog(blog) {
+    const headers = this.auth.createAuthenticationHeaders();
+    return this.http.put(this.auth.domain + '/blog/update', blog, { headers: headers });
+  }
 
   allBlogs() {
     return this.http.get(this.auth.domain + '/blog/all');
