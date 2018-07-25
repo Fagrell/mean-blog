@@ -104,12 +104,11 @@ module.exports = (router) => {
   });
 
   router.get('/few', (req, res) => {
-
     if (!req.query.amount) {
       return res.json({ success: false, message: 'You need to provide the amount of blog posts that you are requesting.'});
     }
 
-    Blog.find({}, { title: 1}, (err, blogs) => {
+    Blog.find({ "public": true }, { title: 1}, (err, blogs) => {
       if (err) {
         return res.json({ success: false, message: 'Could not find blog. Error ' + err});
       }
