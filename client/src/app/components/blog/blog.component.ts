@@ -40,18 +40,25 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (!params['title']) {
-        return; //handle it!
+        this.router.navigate(['/home'], { skipLocationChange: true });
+        return;
       }
       this.blog.oneBlog(params['title']).subscribe(data => {
         if(!data['success']) {
-          return console.log("Failed getting blog, becase: " + data['message']);
+          this.router.navigate(['/home'], { skipLocationChange: true });
+          return;
         }
-        //TODO Check if not public! then route back!
+
+        if (!data['blog'].public) {
+          this.router.navigate(['/home'], { skipLocationChange: true });
+          return;
+        }
+
         this.title = data['blog'].title;
         this.body = data['blog'].body;
         this.createdBy = data['blog'].createdBy;
         this.createdAt = data['blog'].createdAt;
-        this.tags = data['blog'].tags;
+        this.tags = data['blog'].tags;  
         window.scroll(0,0);
 
       });
