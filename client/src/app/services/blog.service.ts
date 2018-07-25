@@ -23,7 +23,7 @@ export class BlogService {
   }
 
   oneBlog(title: string) {
-    return this.http.post(this.auth.domain + '/blog/one', { title: title });
+    return this.http.get(this.auth.domain + '/blog/one/' + title);
   }
 
   fewBlogs(amount: number) {

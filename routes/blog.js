@@ -87,13 +87,9 @@ module.exports = (router) => {
     }).sort({ '_id': -1 });
   });
 
-  router.post('/one', (req, res) => {
+  router.get('/one/:title', (req, res) => {
 
-    if (!req.body.title) {
-      return res.json({ success: false, message: 'You need to provide a blog title'});
-    }
-
-    Blog.findOne({"searchTitle": req.body.title.toLowerCase()}, { searchTitle: 0 }, (err, blog) => {
+    Blog.findOne({"searchTitle": req.params.title.toLowerCase()}, { searchTitle: 0 }, (err, blog) => {
 
       if (err) {
         return res.json({ success: false, message: 'Could not find blog. Error ' + err});
