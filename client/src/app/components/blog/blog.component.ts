@@ -46,6 +46,7 @@ export class BlogComponent implements OnInit {
         if(!data['success']) {
           return console.log("Failed getting blog, becase: " + data['message']);
         }
+        //TODO Check if not public! then route back!
         this.title = data['blog'].title;
         this.body = data['blog'].body;
         this.createdBy = data['blog'].createdBy;
