@@ -27,6 +27,6 @@ export class BlogService {
   }
 
   fewBlogs(amount: number) {
-    return this.http.post(this.auth.domain + '/blog/few', { amount: amount });
+    return this.http.get(this.auth.domain + '/blog/few?amount=' + amount.toString());
   }
 }

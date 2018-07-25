@@ -103,9 +103,9 @@ module.exports = (router) => {
     });
   });
 
-  router.post('/few', (req, res) => {
+  router.get('/few', (req, res) => {
 
-    if (!req.body.amount) {
+    if (!req.query.amount) {
       return res.json({ success: false, message: 'You need to provide the amount of blog posts that you are requesting.'});
     }
 
@@ -119,7 +119,7 @@ module.exports = (router) => {
       }
 
       return res.json({ success: true, blogs: blogs});
-    }).sort({ '_id': -1 }).limit(req.body.amount);
+    }).sort({ '_id': -1 }).limit(parseInt(req.query.amount));
   });
 
   return router;
