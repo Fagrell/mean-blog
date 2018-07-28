@@ -44,7 +44,7 @@
         <div class="row text-strong">
           <div class="col-md-8">
             <a *ngIf="auth.userLoggedIn()" [routerLink]="['/blog-edit', blog.title | replaceSpace: '-' | lowercase ]">Edit</a>&nbsp; 
-            <a *ngIf="auth.userLoggedIn()" routerLink="/blog" (click)="deleteBlog()">Delete</a>
+            <a *ngIf="auth.userLoggedIn()" routerLink="/blog" (click)="deleteBlog(blog._id, blog.title)">Delete</a>
           </div>
           <div class="col-md-4 text-right ">
             <strong class="btn btn-primary" [routerLink]="['/blog', blog.title | replaceSpace: '-' | lowercase ]">

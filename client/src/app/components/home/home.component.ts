@@ -11,6 +11,8 @@ import { AuthService } from '../../services/auth.service';
 export class HomeComponent implements OnInit {
 
   blogs;
+  errorMessageClass: string;
+  errorMessage: string;
 
   constructor(
     private router: Router,
@@ -21,11 +23,23 @@ export class HomeComponent implements OnInit {
   newBlogForm() {
     this.router.navigate(['/blog-edit']);
   }
+  deleteBlog(id: any, title: string) {
+    if (!window.confirm('Are sure you want to delete ' + title + '?')) {
+      return;
+    }
+
+    this.blog.deleteBlog(id).subscribe(data => {
+      if(!data['success']) {
+        return console.log("Failed delete blog because: " + data['message']);
+      }
+      console.log('Blog deleted');
+    });
+  }
 
   ngOnInit() {
     this.blog.allBlogs().subscribe(data => {
       if(!data['success']) {
-        return console.log("Failed getting all blogs, becase: " + data['message']);
+        return console.log("Failed getting all blogs, because: " + data['message']);
       }
       this.blogs = data['blogs'];
     });

@@ -34,4 +34,9 @@ export class BlogService {
   fewBlogs(amount: number) {
     return this.http.get(this.auth.domain + '/blog/few?amount=' + amount.toString());
   }
+
+  deleteBlog(id: any) {
+    const headers = this.auth.createAuthenticationHeaders();
+    return this.http.delete(this.auth.domain + '/blog/delete/' + id, { headers: headers });
+  }
 }
