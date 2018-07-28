@@ -14,10 +14,10 @@ export class FooterComponent implements OnInit {
     private blog: BlogService
   ) { }
 
-  ngOnInit() {
+   refreshBlogs() {
     this.blog.fewBlogs(3).subscribe(data => {
       if (!data['success']) {
-        return console.log("Failed getting all blogs, becase: " + data['message']);
+        return console.log("Failed getting all blogs, because: " + data['message']);
       }
       
       if (!data['blogs']) {
@@ -25,6 +25,13 @@ export class FooterComponent implements OnInit {
       }
 
       this.blogs = data['blogs'];
+    });
+  }
+
+  ngOnInit() {
+    this.refreshBlogs();
+    this.blog.blogsUpdated.subscribe(() => {
+      this.refreshBlogs();
     });
   }
 

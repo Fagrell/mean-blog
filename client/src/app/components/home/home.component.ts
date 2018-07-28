@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
       }
       console.log('Blog deleted');
       this.getAllBlogs();
+      this.blog.blogsHaveUpdated();
     });
   }
 

@@ -92,6 +92,7 @@ export class BlogEditComponent implements OnInit {
      this.showSuccessMessage("Successfully creating new blog");
      window.scroll(0,0);
      this.newBlog = false;
+     this.blog.blogsHaveUpdated();
      setTimeout(() => {
         this.router.navigate(['/blog-edit/'+blogData.title.toLowerCase().split(' ').join('-')])
       }, 1000);
@@ -118,6 +119,7 @@ export class BlogEditComponent implements OnInit {
        return;
      }
      this.showSuccessMessage("Successfully updated new blog");
+     this.blog.blogsHaveUpdated();
    });
   }
 

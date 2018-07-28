@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
-
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class BlogService {
+
+  private updatedSource = new Subject<object>();
+  blogsUpdated = this.updatedSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -38,5 +42,9 @@ export class BlogService {
   deleteBlog(id: any) {
     const headers = this.auth.createAuthenticationHeaders();
     return this.http.delete(this.auth.domain + '/blog/delete/' + id, { headers: headers });
+  }
+
+  blogsHaveUpdated() {
+    this.updatedSource.next();
   }
 }
