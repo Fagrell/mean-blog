@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../../services/blog.service';
 import { AuthService } from '../../services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-edit',
@@ -30,7 +30,8 @@ export class BlogEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private blog: BlogService,
     private auth: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { 
   }
 
@@ -91,6 +92,9 @@ export class BlogEditComponent implements OnInit {
      this.showSuccessMessage("Successfully creating new blog");
      window.scroll(0,0);
      this.newBlog = false;
+     setTimeout(() => {
+        this.router.navigate(['/blog-edit/'+blogData.title.toLowerCase().split(' ').join('-')])
+      }, 1000);
    });
   }
   
