@@ -11,8 +11,6 @@ import { AuthService } from '../../services/auth.service';
 export class HomeComponent implements OnInit {
 
   blogs;
-  errorMessageClass: string;
-  errorMessage: string;
 
   constructor(
     private router: Router,
