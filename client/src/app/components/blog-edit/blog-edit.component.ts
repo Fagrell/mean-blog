@@ -17,6 +17,7 @@ export class BlogEditComponent implements OnInit {
   username: string = '';
   newBlog: Boolean = true;
   id;
+  submitProcessing: Boolean = false;
   errorMessageClass: string;
   errorMessage: string;
 
@@ -70,6 +71,7 @@ export class BlogEditComponent implements OnInit {
   }
 
   saveBlog() {
+    this.submitProcessing = true;
     const blogData = {
       title: this.form.controls.title.value,
       summary: this.form.controls.summaryMessage.value,
@@ -81,6 +83,7 @@ export class BlogEditComponent implements OnInit {
 
    this.blog.newBlog(blogData).subscribe(data => {
      if (!data['success']) {
+       this.submitProcessing = false;
        window.scroll(0,0);
        this.showErrorMessage("Failed creating new blog, because: " + data['message']);
        return;
@@ -92,6 +95,7 @@ export class BlogEditComponent implements OnInit {
   }
   
   updateBlog() {
+    this.submitProcessing = true;
     const blogData = {
       _id: this.id,
       title: this.form.controls.title.value,
@@ -103,6 +107,7 @@ export class BlogEditComponent implements OnInit {
    };
 
    this.blog.updateBlog(blogData).subscribe(data => {
+    this.submitProcessing = false;
      if (!data['success']) {
        window.scroll(0,0);
        this.showErrorMessage("Failed updating new blog, because: " + data['message']);
