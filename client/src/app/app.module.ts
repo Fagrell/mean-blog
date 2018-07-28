@@ -6,7 +6,6 @@ import { AboutComponent } from './components/about/about.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 //Modules
@@ -39,7 +38,6 @@ import { FooterComponent } from './components/footer/footer.component';
     BlogComponent,
     RegisterComponent,
     LoginComponent,
-    DashboardComponent,
     ProfileComponent,
     BlogEditComponent,
     ReplaceSpacePipe,
