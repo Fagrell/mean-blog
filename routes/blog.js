@@ -199,5 +199,35 @@ module.exports = (router) => {
     }).sort({ '_id': -1 }).limit(parseInt(req.query.amount));
   });
 
+  router.delete('/delete/:id', (req, res) => {
+    checkAuth(req.headers['auth'], (err, decoded) => {
+      if (err) {
+        return res.json({ success: false, message: err });
+      }
+
+      if (!req.params.id) {
+        return res.json({ success: false, message: 'No id provided' });
+      }
+      
+      Blog.findOne({ _id: req.params.id }, (err, blog) => {
+        if (err) {
+          return res.json({ success: false, message: 'Invalid id' });
+        }
+
+        if (!blog) {
+          return res.json({ success: false, messasge: 'Blog was not found' });
+        }
+
+        blog.remove((err) => {
+          if (err) {
+            return res.json({ success: false, message: err });
+          }
+          
+          return res.json({ success: true, message: 'Blog deleted!' });
+        });
+      });
+    });
+  });
+
   return router;
 }
