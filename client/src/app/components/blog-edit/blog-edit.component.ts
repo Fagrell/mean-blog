@@ -17,6 +17,8 @@ export class BlogEditComponent implements OnInit {
   username: string = '';
   newBlog: Boolean = true;
   id;
+  errorMessageClass: string;
+  errorMessage: string;
 
 
   splitTags(controlType: string) {
@@ -57,6 +59,16 @@ export class BlogEditComponent implements OnInit {
     this.updateBlog();
   }
 
+  showErrorMessage(message) {
+    this.errorMessageClass = 'alert alert-danger';
+    this.errorMessage = message;
+  }
+
+  showSuccessMessage(message) {
+    this.errorMessageClass = 'alert alert-success';
+    this.errorMessage = message;
+  }
+
   saveBlog() {
     const blogData = {
       title: this.form.controls.title.value,
@@ -69,11 +81,13 @@ export class BlogEditComponent implements OnInit {
 
    this.blog.newBlog(blogData).subscribe(data => {
      if (!data['success']) {
-       console.log("Failed creating new blog, because: " + data['message']);
+       window.scroll(0,0);
+       this.showErrorMessage("Failed creating new blog, because: " + data['message']);
        return;
      }
+     this.showSuccessMessage("Successfully creating new blog");
+     window.scroll(0,0);
      this.newBlog = false;
-     console.log("Successfully creating new blog");
    });
   }
   
@@ -90,10 +104,11 @@ export class BlogEditComponent implements OnInit {
 
    this.blog.updateBlog(blogData).subscribe(data => {
      if (!data['success']) {
-       console.log("Failed updating new blog, because: " + data['message']);
+       window.scroll(0,0);
+       this.showErrorMessage("Failed updating new blog, because: " + data['message']);
        return;
      }
-     console.log("Successfully updated new blog");
+     this.showSuccessMessage("Successfully updated new blog");
    });
   }
 

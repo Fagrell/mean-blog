@@ -3,6 +3,14 @@
 </div>
 
 <div class="af-container-white">
+
+  <!-- Message if saved or error -->
+  <div class="row show-hide-message">
+    <div class="col-md-12" [ngClass]="errorMessageClass">
+      {{ errorMessage }}
+    </div>
+  </div>
+  
   <form [formGroup]="form" (submit)="onSaveSubmit()">
     <div class="row">
       <div class="col-md-12">
