@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
     this.blog.deleteBlog(id).subscribe(data => {
       if(!data['success']) {
-        return console.log("Failed delete blog because: " + data['message']);
+        return console.log("Failed to delete the blog because: " + data['message']);
       }
       console.log('Blog deleted');
       this.getAllBlogs();
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   getAllBlogs() {
     this.blog.allBlogs().subscribe(data => {
       if(!data['success']) {
-        return console.log("Failed getting all blogs, because: " + data['message']);
+        return console.log("Failed fetching all blogs, because: " + data['message']);
       }
       this.blogs = data['blogs'];
     });
