@@ -1,10 +1,11 @@
 {
-  "name": "cleanQt-blog",
+  "name": "cleanqt-blog",
   "version": "1.0.0",
   "description": "Blog used for cleanQt",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "pm2 start index.js",
+    "build": "cd client && ng build --prod --env=prod"
   },
   "repository": {
     "type": "git",

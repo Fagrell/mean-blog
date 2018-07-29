@@ -5,11 +5,10 @@ const mongoose = require('mongoose');
 const config = require('./config/database.js');
 const path = require('path');
 const authentication = require('./routes/authentication')(router);
-
-// Requires token from here
 const blog = require('./routes/blog')(router);
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const port = process.env.PORT || 8080;
 
 mongoose.Promise = global.Promise
 mongoose.connect(config.uri, (err) => {
@@ -37,6 +36,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/dist/client/index.html'));
 });
 
-app.listen(8080, () => {
-  console.log("Listen on port 8080");
+app.listen(port, () => {
+  console.log('Listening on port ' + port + ' in ' + process.env.NODE_ENV + ' mode');
 });
