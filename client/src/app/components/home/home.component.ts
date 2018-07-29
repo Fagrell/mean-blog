@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private blog: BlogService,
-    private auth: AuthService
+    public auth: AuthService
   ) {}
 
   newBlogForm() {
