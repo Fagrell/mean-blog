@@ -1,20 +1,20 @@
 <div class="af-container-blue">
-    <div class="row">
-      <div class="col-xs-10 col-md-10">
-        <h4><span class="alternative-title-color">Latest</span></h4>
-        <div *ngFor="let blog of blogs">
-          <h6><a [routerLink]="['/blog', blog.title | replaceSpace: '-' | lowercase ]">{{ blog.title }}</a></h6>
-        </div>
+  <div class="row">
+    <div class="col-xs-10 col-md-10">
+      <h4><span class="alternative-title-color">Latest</span></h4>
+      <div *ngFor="let blog of blogs">
+        <h6><a [routerLink]="['/blog', blog.title | replaceSpace: '-' | lowercase ]">{{ blog.title }}</a></h6>
       </div>
-      <div class="col-xs-2 col-md-2">
-        <div class="row">
-          <div class="af-icons text-right" id="contact-me">
-              <a href="https://twitter.com/AFagrell" class="fa fa-twitter" target="_blank"></a>
-              <a href="https://www.linkedin.com/in/alexander-fagrell/" class="fa fa-linkedin" target="_blank"></a>
-              <a href="https://github.com/Fagrell" class="fa fa-github" target="_blank"></a>
-              <a href="https://stackoverflow.com/users/5874704/a-fagrell/" class="fa fa-stack-overflow" target="_blank"></a>
-          </div>
+    </div>
+    <div class="col-xs-2 col-md-2">
+      <div class="row">
+        <div class="af-icons text-right" id="contact-me">
+          <a href="https://twitter.com/AFagrell" class="fa fa-twitter" target="_blank"></a>
+          <a href="https://www.linkedin.com/in/alexander-fagrell/" class="fa fa-linkedin" target="_blank"></a>
+          <a href="https://github.com/Fagrell" class="fa fa-github" target="_blank"></a>
+          <a href="https://stackoverflow.com/users/5874704/a-fagrell/" class="fa fa-stack-overflow" target="_blank"></a>
         </div>
       </div>
     </div>
   </div>
+</div>
