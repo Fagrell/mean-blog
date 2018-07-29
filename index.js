@@ -28,12 +28,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/client/dist/client'));
+app.use(express.static(__dirname + '/public'));
 app.use('/authentication', authentication);
 app.use('/blog', blog);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/dist/client/index.html'));
+  res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 app.listen(port, () => {
