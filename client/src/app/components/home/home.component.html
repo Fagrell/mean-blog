@@ -20,7 +20,7 @@
       <div *ngIf="blog.public || auth.userLoggedIn()" class="blog">
         <div class="row blog-header-bottom-spacing">
           <div class="col-sm-9">
-            <h3 class="main-title-color">{{ blog.title }}</h3>
+            <h3><a class="main-title-color" [routerLink]="['/blog', blog.title | replaceSpace: '-' | lowercase ]">{{ blog.title }}</a></h3>
           </div>
           <div class="col-sm-3 text-right small" style="margin-top: 15px;">
             <div *ngIf="!blog.public"> 
