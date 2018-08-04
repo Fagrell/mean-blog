@@ -19,7 +19,8 @@
   border-bottom: rgb(8, 41, 70) solid 5px;
   color: rgb(8, 41, 70);
   padding: 1rem 0.4rem 0rem;
-  border-radius: 10%;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
 
    
 }
