@@ -9,6 +9,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 //Modules
+import { NgtUniversalModule } from '@ng-toolkit/universal';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,8 +46,9 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent
   ],
 
-  imports: [
-    BrowserModule,
+  imports:[
+    CommonModule,
+    NgtUniversalModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -61,8 +64,6 @@ import { FooterComponent } from './components/footer/footer.component';
     AuthService,
     AuthGuard,
     NotAuthGuard
-
   ],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }

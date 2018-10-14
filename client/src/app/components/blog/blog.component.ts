@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component, OnInit , Inject} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 
@@ -20,7 +21,8 @@ export class BlogComponent implements OnInit {
 
   public blogMessage: String = "";
 
-  constructor(
+  constructor(@Inject(WINDOW) 
+    private window: Window, 
     private router: Router,
     private route: ActivatedRoute,
     private blog: BlogService
@@ -59,12 +61,12 @@ export class BlogComponent implements OnInit {
         this.createdBy = data['blog'].createdBy;
         this.createdAt = data['blog'].createdAt;
         this.tags = data['blog'].tags;  
-        window.scroll(0,0);
+        this.window.scroll(0,0);
 
       });
     });
 
-    this.href = window.location.href;
+    this.href = this.window.location.href;
   }
 
 }

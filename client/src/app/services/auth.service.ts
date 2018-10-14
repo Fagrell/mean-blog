@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { LOCAL_STORAGE } from '@ng-toolkit/universal';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../environments/environment';
@@ -13,7 +14,8 @@ export class AuthService {
   user = null;
   jwtHelper = new JwtHelperService();
 
-  constructor(
+  constructor(@Inject(LOCAL_STORAGE) 
+    private localStorage: any, 
     private http: HttpClient
   ) {
     const token = localStorage.getItem('token');
@@ -38,7 +40,7 @@ export class AuthService {
   createAuthenticationHeaders() {
     return new HttpHeaders({
         'Content-Type': 'application/json',
-        'auth': localStorage.getItem('token')
+        'auth': this.localStorage.getItem('token')
       });
   }
 
@@ -54,7 +56,7 @@ export class AuthService {
   logoutUser() {
     this.authToken = null;
     this.user = null;
-    localStorage.clear();
+    this.localStorage.clear();
   }
 
   userLoggedIn() {
@@ -65,8 +67,8 @@ export class AuthService {
   }
 
   storeUserData(token, user) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+    this.localStorage.setItem('token', token);
+    this.localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
     this.user = user;
   }

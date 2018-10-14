@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component, OnInit , Inject} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 
 
@@ -9,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class AboutComponent implements OnInit {
 
-  constructor(
+  constructor(@Inject(WINDOW) private window: Window, 
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -17,7 +18,7 @@ export class AboutComponent implements OnInit {
     try {
       const elements = document.getElementById(title);
       elements.scrollIntoView();
-      window.scrollBy(0, offset);
+      this.window.scrollBy(0, offset);
     } finally {
 
     }

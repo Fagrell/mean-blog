@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component, OnInit , Inject} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../../services/blog.service';
 import { AuthService } from '../../services/auth.service';
@@ -26,7 +27,8 @@ export class BlogEditComponent implements OnInit {
     return controlType.replace(/\s/g, '').split(',');
   }
 
-  constructor(
+  constructor(@Inject(WINDOW) 
+    private window: Window, 
     private formBuilder: FormBuilder,
     private blog: BlogService,
     private auth: AuthService,
@@ -85,12 +87,12 @@ export class BlogEditComponent implements OnInit {
    this.blog.newBlog(blogData).subscribe(data => {
      if (!data['success']) {
        this.submitProcessing = false;
-       window.scroll(0,0);
+       this.window.scroll(0,0);
        this.showErrorMessage("Failed creating new blog, because: " + data['message']);
        return;
      }
      this.showSuccessMessage("Successfully creating new blog");
-     window.scroll(0,0);
+     this.window.scroll(0,0);
      this.newBlog = false;
      this.blog.blogsHaveUpdated();
      setTimeout(() => {
@@ -114,7 +116,7 @@ export class BlogEditComponent implements OnInit {
    this.blog.updateBlog(blogData).subscribe(data => {
     this.submitProcessing = false;
      if (!data['success']) {
-       window.scroll(0,0);
+       this.window.scroll(0,0);
        this.showErrorMessage("Failed updating new blog, because: " + data['message']);
        return;
      }
