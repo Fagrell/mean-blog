@@ -6,14 +6,14 @@
     
     module.exports = {
       entry: {
-        server: './../index.ts',
+        server: './index.ts',
       },
       target: 'node',
       resolve: { extensions: ['.ts', '.js'] },
-      externals: [/(node_modules|main\..*\.js)/,'client/node_modules'],
+      externals: [/node_modules/],
       output: {
         libraryTarget: 'commonjs2',
-        path: path.join(__dirname, './../public/'),
+        path: path.join(__dirname, 'public'),
         filename: '[name].js'
       },
       module: {

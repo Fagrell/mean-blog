@@ -1,8 +1,5 @@
-const zone = require('./client/node_modules/zone.js/dist/zone-node');
-const metadata = require('./client/node_modules/reflect-metadata');
-
-const ngExpressEngine = require('./client/node_modules/@nguniversal/express-engine');
-const provideModuleMap = require('./client/node_modules/@nguniversal/module-map-ngfactory-loader');
+const zone = require('zone.js/dist/zone-node');
+const metadata = require('reflect-metadata');
 
 const express = require('express');
 const app = express();
@@ -15,11 +12,17 @@ const authentication = require('./routes/authentication')(router);
 const blog = require('./routes/blog')(router);
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const compression = require('./client/node_modules/compression');
+const compression = require('compression');
 
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./public/server/main');
 
 const port = process.env.PORT || 8080;
+
+import { enableProdMode } from '@angular/core';
+import { environment } from './src/environments/environment';
+if (environment.production) {
+  enableProdMode();
+}
 
 mongoose.Promise = global.Promise
 mongoose.connect(config.uri, (err) => {
@@ -41,6 +44,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+// Express Engine
+import { ngExpressEngine } from '@nguniversal/express-engine';
+// Import module map for lazy loading
+import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
+
 app.engine('html', ngExpressEngine({
   bootstrap: AppServerModuleNgFactory,
   providers: [
@@ -48,16 +56,15 @@ app.engine('html', ngExpressEngine({
   ]
 }));
 
-app.use(express.static(__dirname + '/public/browser'));
 app.set('view engine', 'html');
-app.set('views', '/public/browser');
+app.set('views', './public/browser');
 
 app.get('/redirect/**', (req, res) => {
   const location = req.url.substring(10);
   res.redirect(301, location);
 });
 
-app.get('*.*', express.static('/public/browser', {
+app.get('*.*', express.static('./public/browser', {
   maxAge: '1y'
 }));
 
