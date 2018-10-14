@@ -13,7 +13,7 @@
     "build:server:prod": "ng run client:server && webpack --config webpack.server.config.js --progress --colors --display-error-details",
     "build:browser:prod": "ng build --prod",
     "build:prod": "npm run build:server:prod && npm run build:browser:prod",
-    "server": "node local.js"
+    "server": "pm2 start public/server"
   },
   "repository": {
     "type": "git",
