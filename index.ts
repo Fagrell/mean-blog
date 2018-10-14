@@ -19,10 +19,8 @@ const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./public/server/m
 const port = process.env.PORT || 8080;
 
 import { enableProdMode } from '@angular/core';
-import { environment } from './src/environments/environment';
-if (environment.production) {
-  enableProdMode();
-}
+
+enableProdMode();
 
 mongoose.Promise = global.Promise
 mongoose.connect(config.uri, (err) => {
@@ -59,26 +57,30 @@ app.engine('html', ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', './public/browser');
 
-app.get('/redirect/**', (req, res) => {
-  const location = req.url.substring(10);
-  res.redirect(301, location);
-});
+// app.get('/', (req, res) => { res.render('index', { req, res }); });
+// app.get('/home', (req, res) => { res.render('index', { req, res }); });
+
+// app.get('/redirect/**', (req, res) => {
+//   const location = req.url.substring(10);
+//   res.redirect(301, location);
+// });
+
+// API SPECIFIC
+app.use('/authentication', authentication);
+app.use('/blog', blog);
 
 app.get('*.*', express.static('./public/browser', {
   maxAge: '1y'
 }));
 
-app.use('/authentication', authentication);
-app.use('/blog', blog);
-
-app.get('/*', (req, res) => {
+// All regular routes use the Universal engine
+app.get('*', (req, res) => {
   res.render('index', {req, res}, (err, html) => {
     if (html) {
-      res.send(html);
-    } else {
-      console.error(err);
-      res.send(err);
+      return res.send(html);
     }
+    console.error(err);
+    res.send(err);
   });
 });
 
