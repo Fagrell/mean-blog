@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router'
 import { BlogService } from '../../services/blog.service';
 import { AuthService } from '../../services/auth.service';
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
 
   blogs;
 
-  constructor(
+  constructor(@Inject(WINDOW) 
+    private window: Window, 
     private router: Router,
     private blog: BlogService,
     public auth: AuthService
@@ -22,7 +24,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/blog-edit']);
   }
   deleteBlog(id: any, title: string) {
-    if (!window.confirm('Are sure you want to delete ' + title + '?')) {
+    if (!this.window.confirm('Are sure you want to delete ' + title + '?')) {
       return;
     }
 
