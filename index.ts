@@ -1,5 +1,5 @@
-const zone = require('zone.js/dist/zone-node');
-const metadata = require('reflect-metadata');
+require('zone.js/dist/zone-node');
+require('reflect-metadata');
 
 const express = require('express');
 const app = express();
@@ -44,6 +44,7 @@ app.use(bodyParser.json());
 
 // Express Engine
 import { ngExpressEngine } from '@nguniversal/express-engine';
+
 // Import module map for lazy loading
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 
@@ -57,14 +58,6 @@ app.engine('html', ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', './public/browser');
 
-// app.get('/', (req, res) => { res.render('index', { req, res }); });
-// app.get('/home', (req, res) => { res.render('index', { req, res }); });
-
-// app.get('/redirect/**', (req, res) => {
-//   const location = req.url.substring(10);
-//   res.redirect(301, location);
-// });
-
 // API SPECIFIC
 app.use('/authentication', authentication);
 app.use('/blog', blog);
@@ -75,13 +68,7 @@ app.get('*.*', express.static('./public/browser', {
 
 // All regular routes use the Universal engine
 app.get('*', (req, res) => {
-  res.render('index', {req, res}, (err, html) => {
-    if (html) {
-      return res.send(html);
-    }
-    console.error(err);
-    res.send(err);
-  });
+  res.render('index', {req , res});
 });
 
 app.listen(port, () => {
