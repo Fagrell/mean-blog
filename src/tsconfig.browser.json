@@ -1,9 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/app",
+    "outDir": "../out-tsc/browser",
     "module": "es2015",
     "types": []
+  },
+  "angularCompilerOptions": {
+      "entryModule": "./app/app.browser.module#AppBrowserModule"
   },
   "exclude": [
     "src/test.ts",
