@@ -10,6 +10,7 @@ const STATE_KEY_BODY = makeStateKey('body');
 const STATE_KEY_CREATED_BY = makeStateKey('created by');
 const STATE_KEY_CREATED_AT = makeStateKey('created at');
 const STATE_KEY_TAGS = makeStateKey('tags');
+const STATE_KEY_HREF = makeStateKey('href');
 
 @Component({
   selector: 'app-blog',
@@ -76,12 +77,16 @@ export class BlogComponent implements OnInit {
     this.createdBy = this.state.get(STATE_KEY_CREATED_BY, null as String);
     this.createdAt = this.state.get(STATE_KEY_CREATED_AT, null as Date);
     this.tags = this.state.get(STATE_KEY_TAGS, null as Array<string>);
+    this.href = this.state.get(STATE_KEY_HREF, null as string);
 
-    if (!this.body) {
+    const href = this.window.location.href;
+    if (!this.body || href != this.href) {
       this.getBlog();
+      this.href = this.window.location.href;
+      this.state.set(STATE_KEY_HREF, this.href as string);
     }
 
-    this.href = this.window.location.href;
+    
   }
 
 }
