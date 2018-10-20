@@ -3,6 +3,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router'
 import { BlogService } from '../../services/blog.service';
 import { AuthService } from '../../services/auth.service';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
+
+const STATE_KEY_BLOGS = makeStateKey('blogs');
 
 @Component({
   selector: 'app-home',
@@ -11,13 +14,14 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  blogs;
+  blogs : any = [];
 
   constructor(@Inject(WINDOW) 
-    private window: Window, 
+    private window: Window,
     private router: Router,
     private blog: BlogService,
-    public auth: AuthService
+    public auth: AuthService,
+    private state: TransferState
   ) {}
 
   newBlogForm() {
@@ -44,10 +48,14 @@ export class HomeComponent implements OnInit {
         return console.log("Failed fetching all blogs, because: " + data['message']);
       }
       this.blogs = data['blogs'];
+      this.state.set(STATE_KEY_BLOGS, <any>this.blogs);
     });
   }
 
   ngOnInit() {
-    this.getAllBlogs();
+    this.blogs = this.state.get(STATE_KEY_BLOGS, <any>[]);
+    if (this.blogs.length == 0) {
+      this.getAllBlogs();
+    }
   }
 }

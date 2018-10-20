@@ -1,7 +1,7 @@
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
     
 @NgModule({
  bootstrap: [
@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
  imports: [
    BrowserModule.withServerTransition({appId: 'app-root'}),
    AppModule,
+   BrowserTransferStateModule
  ]
 })
 export class AppBrowserModule {}

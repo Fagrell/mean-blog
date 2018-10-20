@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
+
+const STATE_KEY_BLOGS = makeStateKey('blogs');
 
 @Component({
   selector: 'app-footer',
@@ -8,10 +11,11 @@ import { BlogService } from '../../services/blog.service';
 })
 export class FooterComponent implements OnInit {
 
-  blogs;
+  blogs : any = [];
 
   constructor(
-    private blog: BlogService
+    private blog: BlogService,
+    private state: TransferState
   ) { }
 
    refreshBlogs() {
@@ -25,14 +29,19 @@ export class FooterComponent implements OnInit {
       }
 
       this.blogs = data['blogs'];
+      this.state.set(STATE_KEY_BLOGS, <any>this.blogs);
     });
   }
 
   ngOnInit() {
-    this.refreshBlogs();
-    this.blog.blogsUpdated.subscribe(() => {
+    this.blogs = this.state.get(STATE_KEY_BLOGS, <any>[]);
+    if (this.blogs.length == 0) {
+
       this.refreshBlogs();
-    });
+      this.blog.blogsUpdated.subscribe(() => {
+        this.refreshBlogs();
+      });
+    }
   }
 
 }
