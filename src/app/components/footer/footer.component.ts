@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-const STATE_KEY_BLOGS = makeStateKey('blogs');
+const STATE_KEY_BLOGS = makeStateKey('footer_blogs');
 
 @Component({
   selector: 'app-footer',
