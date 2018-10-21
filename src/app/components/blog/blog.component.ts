@@ -3,7 +3,7 @@ import { Component, OnInit , Inject} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
-import { getAllDebugNodes } from '@angular/core/src/debug/debug_node';
+import { Title, Meta } from '@angular/platform-browser';
 
 const STATE_KEY_TITLE = makeStateKey('title');
 const STATE_KEY_BODY = makeStateKey('body');
@@ -19,59 +19,83 @@ const STATE_KEY_HREF = makeStateKey('href');
 })
 export class BlogComponent implements OnInit {
   public href: string = "";
+  public shareHref: string = "";
   title: String = "";
   body: String = "";
   createdBy: String = "";
   createdAt: Date;
   tags: Array<string>;
 
-  constructor(@Inject(WINDOW) 
+  constructor(@Inject(WINDOW)
     private window: Window, 
     private router: Router,
     private route: ActivatedRoute,
     private blog: BlogService,
-    private state: TransferState
+    private state: TransferState,
+    private pageTitle: Title,
+    private meta: Meta,
   ) {}
 
   newBlogForm() {
     this.router.navigate(['/blog-edit']);
   }
 
-  getBlog() {
-    this.route.params.subscribe(params => {
-      if (!params['title']) {
+  updatedSEOData() {
+    this.updatedTitle();
+    this.updateDescription();
+  }
+
+  updatedTitle() {
+    this.pageTitle.setTitle(this.title + ' / Clean Qt');
+  }
+
+  updateDescription() {
+    const tags = this.tags.join(' ');
+    const description = 'Blog post covering: ' + tags;
+    this.meta.updateTag({
+      name: 'description',
+      content: description
+    });
+    this.meta.updateTag({
+      name: 'og:title',
+      content: this.title.toString()
+    });
+    this.meta.updateTag({
+      name: 'og:description',
+      content: description
+    });
+  }
+
+  getBlog(title ) {
+    this.blog.oneBlog(title).subscribe(data => {
+      if(!data['success']) {
         this.router.navigate(['/home'], { skipLocationChange: true });
         return;
       }
-      this.blog.oneBlog(params['title']).subscribe(data => {
-        if(!data['success']) {
-          this.router.navigate(['/home'], { skipLocationChange: true });
-          return;
-        }
 
-        if (!data['blog'].public) {
-          this.router.navigate(['/home'], { skipLocationChange: true });
-          return;
-        }
+      if (!data['blog'].public) {
+        this.router.navigate(['/home'], { skipLocationChange: true });
+        return;
+      }
 
-        this.title = data['blog'].title;
-        this.state.set(STATE_KEY_TITLE, this.title as String);
-        this.body = data['blog'].body;
-        this.state.set(STATE_KEY_BODY, this.body as String);
-        this.createdBy = data['blog'].createdBy;
-        this.state.set(STATE_KEY_CREATED_BY, this.createdBy as String);
-        this.createdAt = data['blog'].createdAt;
-        this.state.set(STATE_KEY_CREATED_AT, this.createdAt as Date);
-        this.tags = data['blog'].tags;
-        this.state.set(STATE_KEY_TAGS, this.tags as Array<string>);
-        this.window.scroll(0,0);
+      this.title = data['blog'].title;
+      this.state.set(STATE_KEY_TITLE, this.title as String);
+      this.body = data['blog'].body;
+      this.state.set(STATE_KEY_BODY, this.body as String);
+      this.createdBy = data['blog'].createdBy;
+      this.state.set(STATE_KEY_CREATED_BY, this.createdBy as String);
+      this.createdAt = data['blog'].createdAt;
+      this.state.set(STATE_KEY_CREATED_AT, this.createdAt as Date);
+      this.tags = data['blog'].tags;
+      this.state.set(STATE_KEY_TAGS, this.tags as Array<string>);
 
-      });
+      this.updatedSEOData();
+      this.window.scroll(0,0);
+
     });
   }
 
   ngOnInit() {
-
     this.title = this.state.get(STATE_KEY_TITLE, null as String);
     this.body = this.state.get(STATE_KEY_BODY, null as String);
     this.createdBy = this.state.get(STATE_KEY_CREATED_BY, null as String);
@@ -79,14 +103,24 @@ export class BlogComponent implements OnInit {
     this.tags = this.state.get(STATE_KEY_TAGS, null as Array<string>);
     this.href = this.state.get(STATE_KEY_HREF, null as string);
 
-    const href = this.window.location.href;
-    if (!this.body || href != this.href) {
-      this.getBlog();
-      this.href = this.window.location.href;
-      this.state.set(STATE_KEY_HREF, this.href as string);
-    }
+    this.route.params.subscribe(params => {
+      const title = params['title'];
+      if (!title) {
+        this.router.navigate(['/home'], { skipLocationChange: true });
+        return;
+      }
 
-    
+      this.shareHref = this.window.location.href;
+      const href = this.window.location.origin + '/blog' + title;
+      if (!this.body || href != this.href) {
+        this.getBlog(title);
+        this.href = href;
+        this.state.set(STATE_KEY_HREF, this.href as string);
+        return;
+      }
+      this.updatedSEOData();
+
+    });
   }
 
 }
