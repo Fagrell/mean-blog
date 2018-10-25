@@ -60,7 +60,7 @@ app.set('views', './public/browser');
 
 // API SPECIFIC
 app.use('/authentication', authentication);
-app.use('/blog', blog);
+app.use('/posts', blog);
 
 app.get('*.*', express.static('./public/browser', {
   maxAge: '1y'

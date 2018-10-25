@@ -19,29 +19,29 @@ export class BlogService {
 
   newBlog(blog) {
     const headers = this.auth.createAuthenticationHeaders();
-    return this.http.post(this.auth.domain + '/blog/new', blog, { headers: headers });
+    return this.http.post(this.auth.domain + '/posts/new', blog, { headers: headers });
   }
   
   updateBlog(blog) {
     const headers = this.auth.createAuthenticationHeaders();
-    return this.http.put(this.auth.domain + '/blog/update', blog, { headers: headers });
+    return this.http.put(this.auth.domain + '/posts/update', blog, { headers: headers });
   }
 
   allBlogs() {
-    return this.http.get(this.auth.domain + '/blog/all');
+    return this.http.get(this.auth.domain + '/posts/all');
   }
 
   oneBlog(title: string) {
-    return this.http.get(this.auth.domain + '/blog/one/' + title);
+    return this.http.get(this.auth.domain + '/posts/one/' + title);
   }
 
   fewBlogs(amount: number) {
-    return this.http.get(this.auth.domain + '/blog/few?amount=' + amount.toString());
+    return this.http.get(this.auth.domain + '/posts/few?amount=' + amount.toString());
   }
 
   deleteBlog(id: any) {
     const headers = this.auth.createAuthenticationHeaders();
-    return this.http.delete(this.auth.domain + '/blog/delete/' + id, { headers: headers });
+    return this.http.delete(this.auth.domain + '/posts/delete/' + id, { headers: headers });
   }
 
   blogsHaveUpdated() {
