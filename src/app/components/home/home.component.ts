@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { BlogService } from '../../services/blog.service';
 import { AuthService } from '../../services/auth.service';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 const STATE_KEY_BLOGS = makeStateKey('blogs');
 
@@ -21,7 +22,9 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private blog: BlogService,
     public auth: AuthService,
-    private state: TransferState
+    private state: TransferState,
+    private pageTitle: Title,
+    private meta: Meta
   ) {}
 
   newBlogForm() {
@@ -53,6 +56,20 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pageTitle.setTitle('Qt and C++ Blog / Clean Qt');
+    const description = "Exploring how to write clean Qt and C++ code"
+    this.meta.updateTag({
+      property: 'description',
+      content: description
+    });
+    this.meta.updateTag({
+      property: 'og:title',
+      content: 'Qt and C++ Blog'
+    });
+    this.meta.updateTag({
+      property: 'og:description',
+      content: description
+    });
     this.blogs = this.state.get(STATE_KEY_BLOGS, <any>[]);
     if (this.blogs.length == 0) {
       this.getAllBlogs();
