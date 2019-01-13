@@ -14,17 +14,28 @@
 
 <div class="af-container-white">
   <p><markdown [data] = "body"></markdown></p>
-  <div class="text-right">
-    <div class="text-muted text-handwritten" style="font-size: 30px; margin-right: 20px">
-      Share the post<img src="../../../assets/images/arrow.svg" style="width: 40px; margin-top: 20px; margin-left: 10px;">
+
+  <div class="row">
+    <div class="col-md-6">
+        <div class="text-muted text-handwritten" style="font-size: 30px;">
+          Subscribe to feed
+        </div>
+        <h5 class="text-muted font-italic" style="margin-top: 10px"><a href="https://www.cleanqt.io/feed/rss">RSS</a> - <a href="https://www.cleanqt.io/feed/atom">Atom</a> - <a href="https://www.cleanqt.io/feed/json">JSON</a></h5>
     </div>
-    <share-buttons [theme]="'default'"
-    [include]="['facebook','twitter','google','linkedin','reddit','tumblr','whatsapp','messenger','xing']"
-    [show]="4"
-    [showCount]="true"
-    [url]="shareHref"
-    [autoSetMeta]="false"
-    ></share-buttons>
+    <div class="col-md-6">
+        <div class="text-right">
+            <div class="text-muted text-handwritten" style="font-size: 30px; margin-right: 20px">
+              Share the post
+            </div>
+            <share-buttons [theme]="'default'"
+            [include]="['facebook','twitter','linkedin','reddit','xing']"
+            [show]="5"
+            [showCount]="true"
+            [url]="shareHref"
+            [autoSetMeta]="false"
+            ></share-buttons>
+          </div>
+    </div>
   </div>
   <hr class="af-separator">
   <disqus [identifier]="href"></disqus>
