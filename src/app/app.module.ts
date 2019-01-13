@@ -56,7 +56,7 @@ import { FooterComponent } from './components/footer/footer.component';
     MarkdownModule.forRoot(),
     AppRoutingModule,
     DisqusModule.forRoot('cleanqt'),
-    ShareButtonsModule.forRoot()
+    ShareButtonsModule
   ],
 
   providers: [
