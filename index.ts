@@ -7,8 +7,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const config = require('./config/database.js');
 const path = require('path');
-const authentication = require('./routes/authentication')(router);
 
+const authentication = require('./routes/authentication')(router);
 const blog = require('./routes/blog')(router);
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -55,13 +55,17 @@ app.engine('html', ngExpressEngine({
   ]
 }));
 
+app.get('/feed/*', (req, res) => {
+  res.type('rss');
+  res.send("resulting xml");
+});
+
 app.set('view engine', 'html');
 app.set('views', './public/browser');
 
 // API SPECIFIC
 app.use('/authentication', authentication);
 app.use('/posts', blog);
-
 app.get('*.*', express.static('./public/browser', {
   maxAge: '1y'
 }));
