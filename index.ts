@@ -10,6 +10,8 @@ const path = require('path');
 
 const authentication = require('./routes/authentication')(router);
 const blog = require('./routes/blog')(router);
+const feed = require('./routes/feed')(router);
+
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const compression = require('compression');
@@ -55,17 +57,13 @@ app.engine('html', ngExpressEngine({
   ]
 }));
 
-app.get('/feed/*', (req, res) => {
-  res.type('rss');
-  res.send("resulting xml");
-});
-
 app.set('view engine', 'html');
 app.set('views', './public/browser');
 
 // API SPECIFIC
 app.use('/authentication', authentication);
 app.use('/posts', blog);
+app.use('/feed', feed);
 app.get('*.*', express.static('./public/browser', {
   maxAge: '1y'
 }));
